@@ -1,4 +1,4 @@
-# Faust Leseraum
+# Am Anfang war der Text
 
 Eine interaktive, szenenbasierte Lernplattform zu Johann Wolfgang von Goethes **Faust I**. Die 84 Aufgaben aus der bereitgestellten Fragensammlung werden mit präzise gesetzten Ausschnitten der Gründgens/Quadflieg-Verfilmung von 1960 verbunden.
 

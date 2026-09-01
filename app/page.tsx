@@ -26,7 +26,7 @@ function classify(question: string) {
 
 function downloadWork(answers: Answers, done: number[]) {
   const lines = [
-    '# Faust Leseraum – Arbeitsstand',
+    '# Am Anfang war der Text – Arbeitsstand',
     '',
     `Exportiert am ${new Date().toLocaleString('de-CH')}`,
     '',
@@ -117,12 +117,12 @@ export default function Home() {
   return (
     <main>
       <header className="topbar">
-        <a className="brand" href="#top" aria-label="Faust Leseraum – Startseite">
+        <a className="brand" href="#top" aria-label="Am Anfang war der Text – Startseite">
           <span className="brandMark">F·I</span>
-          <span>Faust Leseraum</span>
+          <span>Am Anfang war der Text</span>
         </a>
         <nav className="areaNav" aria-label="Hauptbereiche">
-          <a className="active" href="#top" aria-current="page"><span>01</span> Leseraum</a>
+          <a className="active" href="#top" aria-current="page"><span>01</span> Am Anfang war der Text</a>
           <a href="./wissenswelten/"><span>02</span> Wissenswelten</a>
         </nav>
         <nav className="topnav" aria-label="Werkzeuge">

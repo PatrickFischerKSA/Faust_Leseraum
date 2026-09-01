@@ -8,17 +8,17 @@ const publicOrigin = process.env.GITHUB_ACTIONS === 'true' && githubOwner && git
 
 export const metadata: Metadata = {
   metadataBase: new URL(publicOrigin),
-  title: 'Faust Leseraum · Goethe × Gründgens',
+  title: 'Am Anfang war der Text · Goethe × Gründgens',
   description: 'Interaktive Lektüre zu Goethes Faust I mit Fragen und Filmsequenzen der Gründgens-Verfilmung von 1960.',
   openGraph: {
-    title: 'Faust Leseraum',
+    title: 'Am Anfang war der Text',
     description: 'Goethe × Gründgens · interaktive Lektüre',
     type: 'website',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Faust Leseraum – Goethe × Gründgens' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Am Anfang war der Text – interaktive Faust-Lektüre' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Faust Leseraum',
+    title: 'Am Anfang war der Text',
     description: 'Goethe × Gründgens · interaktive Lektüre',
     images: ['/og.png'],
   },
