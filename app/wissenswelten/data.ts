@@ -22,6 +22,8 @@ export type Module = {
   tasks: Task[];
 };
 
+export type TaskGuide = { material: string; format: string; example: string; criteria: string[] };
+
 const task = (id: string, title: string, form: Task['form'], minutes: number, prompt: string, product: string, steps: string[], roles?: string[]): Task => ({ id, title, form, minutes, prompt, product, steps, roles });
 
 export const modules: Module[] = [
@@ -110,3 +112,114 @@ export const sources = [
   ['Klassik Stiftung Weimar: Goethe und Kant','https://www.klassik-stiftung.de/ihr-besuch/ausstellung/goethes-begegnungen-mit-kants-philosophie/'],
   ['Klassik Stiftung: Faust-Begleitbuch (PDF)','https://publikationen.klassik-stiftung.de/servlets/MCRFileNodeServlet/ksw_derivate_00001073/LFTS_Begleitbuch.pdf']
 ] as const;
+
+export const taskGuides: Record<string, TaskGuide> = {
+  'w-self': {
+    material:'Ein eigenes, sachliches Beispiel: etwa eine Präsentation, ein Musikstück, ein Sportziel oder eine längere Schularbeit. Keine intime Erfahrung nötig.',
+    format:'Zeichne eine Linie mit genau drei Stationen: Anfang – Unterbrechung/Änderung – heutiger Stand. Schreibe zu jeder Station zwei konkrete Sätze.',
+    example:'„Am Anfang wollte ich … / Nach der Rückmeldung änderte ich … / Heute erkenne ich …“',
+    criteria:['Drei zeitlich unterscheidbare Stationen','Eine konkrete Veränderung statt allgemeiner Aussagen','Ein abschliessender Satz über das eigene Lernen']
+  },
+  'w-pair': {
+    material:'Öffnet gemeinsam die Faustedition. Wählt dieselbe Passage von mindestens sechs Zeilen in einer frühen und einer späteren Fassung.',
+    format:'Tabelle mit drei Zeilen und den Spalten: frühe Fassung – spätere Fassung – mögliche Wirkung. Jede Zeile enthält ein kurzes Textzitat.',
+    example:'„Wort A wird durch Wort B ersetzt → Faust wirkt dadurch entschlossener.“',
+    criteria:['Drei nachprüfbare Textunterschiede','Zu jedem Unterschied ein Wirkungsverb','Beobachtung und Deutung klar getrennt']
+  },
+  'w-trio': {
+    material:'Nutzt die Vergleichstabelle aus dem Tandemauftrag oder erstellt zuerst drei belegte Fassungsunterschiede.',
+    format:'90-Sekunden-Pitch: Entscheid – zwei Textbelege – stärkstes Gegenargument – Antwort darauf. Jede Person spricht 20–30 Sekunden.',
+    example:'„Wir wählen Fassung …, weil die veränderte Wortwahl …; dagegen spricht …“',
+    criteria:['Alle drei Rollen hörbar beteiligt','Mindestens zwei präzise Textbelege','Gegenargument wird fair beantwortet']
+  },
+  'k-self': {
+    material:'Eine überschaubare Alltagssituation, in der Fakten allein nicht gereicht haben, etwa Berufswahl, Teamkonflikt oder Zeitplanung.',
+    format:'Fülle drei Abschnitte mit je 2–3 Sätzen: Das wusste ich – Das konnte Wissen nicht entscheiden – Daran orientierte ich mich.',
+    example:'„Ich kannte alle Termine. Das löste den Zielkonflikt nicht. Entscheidend war für mich der Wert …“',
+    criteria:['Fakten und Wertentscheidung unterschieden','Konkrete Situation genannt','Keine persönliche Information, die du nicht teilen willst']
+  },
+  'k-pair': {
+    material:'Lest in „Nacht“ Fausts Bilanz seiner Studien und das anschliessende Gespräch mit Wagner. Markiert je zwei Aussagen für eure Position.',
+    format:'Zwei Runden à fünf Minuten, danach eine Vier-Felder-Tabelle: Stärke Faust – Risiko Faust – Stärke Wagner – Risiko Wagner. Schluss: drei gemeinsame Sätze.',
+    example:'„Wagners Geduld schützt vor …; Fausts Erfahrungsdrang ermöglicht …; tragfähig wäre …“',
+    criteria:['Rollenwechsel tatsächlich durchgeführt','Vier Felder mit je einem Textbezug','Gemeinsames Urteil verbindet beide Positionen']
+  },
+  'k-trio': {
+    material:'Wählt 6–10 zusammenhängende Zeilen aus Fausts erstem Monolog und seht die entsprechende Filmstelle nochmals an.',
+    format:'Spielt dieselben Zeilen zweimal: Variante A ruhig/kontrolliert, Variante B körperlich/verzweifelt. Notiert danach drei beobachtete Wirkungsunterschiede.',
+    example:'„Die Pause vor … lässt den Satz wie einen Entschluss statt wie eine Klage wirken.“',
+    criteria:['Zwei deutlich verschiedene Spielweisen','Stimme, Körper und Pause berücksichtigt','Wirkung an einem konkreten Moment erklärt']
+  },
+  'n-self': {
+    material:'Ein Blatt, Stein, Glas Wasser oder eine Wolke. Stelle einen Timer auf sieben Minuten; verwende zunächst kein Internet und kein Bestimmungsbuch.',
+    format:'Zweispaltiges Protokoll: links 8 reine Beobachtungen, rechts die späteren Deutungen. Unterstreiche Wörter, die bereits eine Erklärung enthalten.',
+    example:'Beobachtung: „Der Rand ist unregelmässig.“ Deutung: „Das Blatt wurde angefressen.“',
+    criteria:['Mindestens acht sicht-/hör-/fühlbare Merkmale','Beobachtung und Erklärung getrennt','Ein Satz darüber, wann Vorwissen eingesetzt hat']
+  },
+  'n-pair': {
+    material:'Dasselbe kleine Phänomen für beide: etwa Abkühlen von Tee, Schattenlänge oder Fall eines Papierblatts. Benötigt werden Uhr/Lineal nur für die Messrolle.',
+    format:'Person A schreibt fünf qualitative Beobachtungen, Person B mindestens fünf Messwerte. Danach: je zwei Aussagen, die nur eines der Verfahren erlaubt.',
+    example:'„Messung: 62 °C nach 3 Minuten. Anschauung: An der Oberfläche bildet sich eine dünne Haut.“',
+    criteria:['Beide untersuchen exakt dasselbe Phänomen','Mindestens fünf Einträge pro Verfahren','Je eine Grenze beider Verfahren benannt']
+  },
+  'n-trio': {
+    material:'Nehmt ein vertrautes Modell, etwa Sonnensystem-Modell, Wasserkreislauf-Schema oder Atommodell aus einem Lehrmittel.',
+    format:'Erstellt ein A4-Blatt mit drei Kästen: Das zeigt das Modell – Das verschweigt es – So würden wir es verbessern. Fügt eine kleine Skizze hinzu.',
+    example:'„Das Kugelmodell zeigt Abstände nicht massstabgetreu; unsere Legende kennzeichnet diese Verzerrung.“',
+    criteria:['Eine Stärke und zwei Grenzen konkret benannt','Mindestens ein Gegenbeispiel','Verbesserung als Skizze oder genaue Anweisung']
+  },
+  'p-self': {
+    material:'Eine konkrete, noch nicht zu persönliche Entscheidung: lernen oder pausieren, etwas ansprechen oder warten, planen oder beginnen.',
+    format:'Ordne Wort – Sinn – Kraft – Tat auf vier Karten. Begründe die Reihenfolge mit genau einem konkreten Entscheidungsbeispiel und ändere sie bei Bedarf.',
+    example:'„Bei meinem Beispiel steht zuerst …, weil …; ‚Tat‘ kommt erst an Stelle …“',
+    criteria:['Alle vier Begriffe eingeordnet','Reihenfolge an einem Beispiel geprüft','Mindestens eine Spannung zwischen zwei Begriffen erklärt']
+  },
+  'p-pair': {
+    material:'Lest die Übersetzungsszene von „Im Anfang war das Wort“ bis „Im Anfang war die Tat“. Markiert jede Übersetzungsvariante.',
+    format:'Person A schreibt eine textnahe These mit zwei Wörtern aus der Passage. Person B ergänzt einen philosophischen Begriff. Danach schreibt ihr eine Synthese und eine offene Frage.',
+    example:'„Textnah fällt die Steigerung … auf. Philosophisch lässt sie sich als … lesen. Offen bleibt …“',
+    criteria:['Alle Übersetzungsvarianten berücksichtigt','Textbeobachtung vor Kontextdeutung','Offene Grenze der Deutung ausdrücklich genannt']
+  },
+  'p-trio': {
+    material:'Drei Blätter mit den Überschriften Hiob, Spinoza/Kant und Fausts Übersetzungsszene. Jede Person erhält zunächst genau ein Blatt.',
+    format:'Begriffsnetz mit mindestens sechs Pfeilen. Jeder Pfeil trägt ein Verb und eine Markierung: sicher belegt – plausible Deutung – offene Frage.',
+    example:'Nicht nur „Hiob → Faust“, sondern „Die Prüfungsanordnung erinnert an … [plausibel]“',
+    criteria:['Mindestens zwei Beiträge pro Person','Jede Verbindung sprachlich erklärt','Keine mögliche Parallele als sicherer Einfluss ausgegeben']
+  },
+  'h-self': {
+    material:'Wähle eine konkrete Technik: Embryonen-Selektion, Organ-Züchtung, autonomes System oder lernfähige KI. Beschreibe sie zuerst in einem neutralen Satz.',
+    format:'Wertekompass mit vier Feldern: möglicher Nutzen – mögliche Betroffene – rote Linie – Ausnahme unter Bedingungen.',
+    example:'„Meine rote Linie ist fehlende Zustimmung. Eine Ausnahme wäre nur vertretbar, wenn …“',
+    criteria:['Konkrete Technik statt „Technik allgemein“','Betroffene Personengruppe genannt','Grenze und begründete Ausnahme formuliert']
+  },
+  'h-pair': {
+    material:'Ausgangslage: Homunculus verlangt, das Labor verlassen und selbst über seinen Weg entscheiden zu dürfen.',
+    format:'Schreibt zwölf kurze Dialogzeilen: je drei pro Rolle, dann Rollenwechsel mit weiteren je drei Zeilen. Schliesst mit zwei Sätzen zum Machtgefälle.',
+    example:'„Erzeuger: Ich bin verantwortlich für … / Homunculus: Verantwortung gibt dir nicht das Recht …“',
+    criteria:['Genau zwölf Dialogbeiträge','Nach dem Rollenwechsel ändern sich die Argumente','Freiheit und Fürsorge beide angesprochen']
+  },
+  'h-trio': {
+    material:'Fallakte: Ein Labor hat ein empfindungsfähiges künstliches Wesen erzeugt. Es kann sprechen, ist aber ausserhalb seines Gefässes noch nicht lebensfähig.',
+    format:'Votum mit vier Überschriften: Entscheid – drei Freigabebedingungen – grösstes Risiko – Minderheitsnotiz. Jede Rolle gibt zuerst ein Einzelvotum ab.',
+    example:'„Freigabe nur unter Bedingung 1 …; die Öffentlichkeitsrolle widerspricht bei …“',
+    criteria:['Nutzen und Risiko getrennt bewertet','Drei überprüfbare Bedingungen','Abweichende Meinung sichtbar, falls kein Konsens']
+  },
+  'f-self': {
+    material:'Eine konkrete Veränderung aus Schule oder Alltag: neues digitales Werkzeug, neue Regel, Umzug, Ausbau oder Verkehrslösung.',
+    format:'Tabelle mit einer Zeile pro Perspektive: Ich – direkt Betroffene – später Betroffene. Spalten: Gewinn – Preis – unbekannte Folge.',
+    example:'„Für mich spart … Zeit; für … entsteht dagegen …; langfristig ist unklar …“',
+    criteria:['Drei Perspektiven ausgefüllt','Gewinn und Preis konkret benannt','Eine unsichere Langzeitfolge markiert']
+  },
+  'f-pair': {
+    material:'Simulation: Die Staatskasse ist leer. Ihr dürft neue Geldscheine im Wert von 100 Einheiten ausgeben. Es gibt vorerst nur Güter im Wert von 60 Einheiten.',
+    format:'Runde 1: Finanzrat wirbt, Kontrollrat prüft. Runde 2: Rollenwechsel. Erstellt danach eine Risikoampel für Vertrauen, Preise und Verteilung sowie einen Entscheid.',
+    example:'„Preise: rot, weil mehr Zahlungsmittel auf gleich viele Güter treffen. Ausgabe nur, wenn …“',
+    criteria:['Zahlen des Falls im Argument verwendet','Rollenwechsel protokolliert','Entscheid enthält drei konkrete Bedingungen']
+  },
+  'f-trio': {
+    material:'Fallakte: Ein Küstenprojekt schafft Wohnraum für 10 000 Menschen. Dafür werden 40 Haushalte umgesiedelt; ein Feuchtgebiet schrumpft um ein Drittel.',
+    format:'Folgenmatrix mit den Zeilen Planung – betroffene Haushalte – Umwelt/Zukunft und den Spalten Nutzen – Schaden – Schutzauflage. Danach ein Beschluss in fünf Sätzen.',
+    example:'„Die Planungsrolle stimmt zu, wenn …; die Betroffenenrolle verlangt …; ungelöst bleibt …“',
+    criteria:['Alle Zahlen der Fallakte berücksichtigt','Jede Rolle formuliert eine Schutzauflage','Gemeinsamer Beschluss nennt verbleibenden Dissens']
+  }
+};

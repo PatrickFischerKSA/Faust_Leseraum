@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { glossary, modules, sources, type Task } from './data';
+import { glossary, modules, sources, taskGuides, type Task } from './data';
 import { evaluateResponse, TextFeedback } from '../feedback';
 import './wissenswelten.css';
 
@@ -58,10 +58,13 @@ export default function Wissenswelten() {
         <div className="tasks">{tasks.map(task => {
           const value=saved[task.id] || {note:'',checks:[],done:false}; const eligible=canFinish(task);
           const textReady=evaluateResponse(task.prompt, value.note, '', task.form==='Selbst'?'reflection':'group').ready;
+          const guide=taskGuides[task.id];
           return <article className={`task ${task.form.toLowerCase()} ${value.done?'done':''}`} key={task.id}>
             <div className="taskMeta"><span>{task.form}</span><span>{task.minutes} Min.</span></div><h3>{task.title}</h3><p className="taskPrompt">{task.prompt}</p>
             {task.roles&&<div className="roles">{task.roles.map((r,i)=><span key={r}>Rolle {i+1}<strong>{r}</strong></span>)}</div>}
-            <ol>{task.steps.map((step,i)=><li key={step}><label><input type="checkbox" disabled={task.form==='Selbst'} checked={!!value.checks[i]} onChange={e=>change(task.id,{checks:Object.assign([],value.checks,{[i]:e.target.checked})})}/><span>{step}</span></label></li>)}</ol>
+            <div className="taskGuide"><div><span>Ausgangspunkt</span><p>{guide.material}</p></div><div><span>Genaues Ergebnis</span><p>{guide.format}</p></div><div className="taskExample"><span>Beispielanfang</span><p>{guide.example}</p></div></div>
+            <div className="successCriteria"><span>Das muss enthalten sein</span><ul>{guide.criteria.map(item=><li key={item}>{item}</li>)}</ul></div>
+            <div className="workflow"><span>Arbeitsablauf</span><ol>{task.steps.map((step,i)=><li key={step}>{task.form==='Selbst'?<><b>{i+1}</b><span>{step}</span></>:<label><input type="checkbox" checked={!!value.checks[i]} onChange={e=>change(task.id,{checks:Object.assign([],value.checks,{[i]:e.target.checked})})}/><span>{step}</span></label>}</li>)}</ol>{task.form!=='Selbst'&&<small>Die Häkchen bestätigen nur euren Arbeitsprozess – sie sind keine Auswahlantworten.</small>}</div>
             <label className="protocol"><span>{task.form==='Selbst'?'Deine private Reflexion':'Gemeinsames Protokoll'} · {task.product}</span><textarea value={value.note} onChange={e=>change(task.id,{note:e.target.value})} placeholder={task.form==='Selbst'?'Was hast du über dein eigenes Denken bemerkt?':'Haltet Beiträge aller Beteiligten, Belege und euren gemeinsamen Entscheid fest …'}/><small>{value.note.length} Zeichen · {task.form==='Selbst'?'mind. 80':'mind. 140'}</small></label>
             <TextFeedback prompt={`${task.prompt} ${task.product}`} answer={value.note} mode={task.form==='Selbst'?'reflection':'group'} />
             <button className="finish" disabled={(!eligible||!textReady)&&!value.done} onClick={()=>change(task.id,{done:!value.done})}>{value.done?'✓ Abgeschlossen':eligible&&textReady?'Auftrag abschliessen':'Feedback noch umsetzen'}</button>
