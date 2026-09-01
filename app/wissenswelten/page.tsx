@@ -15,6 +15,7 @@ export default function Wissenswelten() {
   const [saved, setSaved] = useState<Saved>({});
   const [ready, setReady] = useState(false);
   const [glossaryQuery, setGlossaryQuery] = useState('');
+  const [dialog, setDialog] = useState<{kind:'fact'; index:number}|{kind:'task'; id:string}|null>(null);
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- hydration from browser-only storage */
     try { setSaved(JSON.parse(localStorage.getItem('faust-wissenswelten') || '{}')); } catch {}
@@ -22,11 +23,17 @@ export default function Wissenswelten() {
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
   useEffect(() => { if (ready) localStorage.setItem('faust-wissenswelten', JSON.stringify(saved)); }, [saved, ready]);
+  useEffect(() => {
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') setDialog(null); };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+  }, []);
   const activeModule = modules[active];
   const facts = depth === 'Basis' ? activeModule.basis : depth === 'Vertiefung' ? activeModule.deeper : activeModule.research;
   const tasks = activeModule.tasks.filter(t => filter === 'Alle' || t.form === filter);
   const completed = Object.values(saved).filter(v => v.done).length;
   const words = useMemo(() => glossary.filter(([term, definition]) => `${term} ${definition}`.toLowerCase().includes(glossaryQuery.toLowerCase())), [glossaryQuery]);
+  const dialogTask = dialog?.kind === 'task' ? activeModule.tasks.find(task => task.id === dialog.id) : undefined;
 
   function change(id: string, patch: Partial<Saved[string]>) {
     setSaved(current => {
@@ -53,14 +60,15 @@ export default function Wissenswelten() {
       <div className="moduleContent">
         <div className="questionLead"><span>Leitfrage</span><h2>{activeModule.question}</h2></div>
         <div className="depthTabs">{(['Basis','Vertiefung','Forschung'] as const).map(d=><button className={depth===d?'active':''} onClick={()=>setDepth(d)} key={d}>{d}</button>)}</div>
-        <div className="factGrid">{facts.map((fact,i)=><article key={fact}><span>0{i+1}</span><p>{fact}</p></article>)}</div>
+        <div className="factGrid">{facts.map((fact,i)=><article key={fact}><span>0{i+1}</span><p>{fact}</p><button onClick={()=>setDialog({kind:'fact',index:i})}>{depth === 'Forschung' ? 'Forschungsfenster öffnen' : 'Denkfenster öffnen'} <b>↗</b></button></article>)}</div>
+        <div className="workbenchStrip"><div><span>01</span><p><strong>Entdecken</strong>Karte öffnen und Gedanken prüfen</p></div><div><span>02</span><p><strong>Bearbeiten</strong>Auftrag im Dialog Schritt für Schritt lösen</p></div><div><span>03</span><p><strong>Rückmeldung</strong>Text sofort überarbeiten</p></div></div>
         <div className="taskHeading"><div><p className="worldEyebrow">Erfahrung → Austausch → Urteil</p><h2>Aufträge</h2></div><div className="taskFilters">{(['Alle','Selbst','Tandem','Trio'] as const).map(f=><button className={filter===f?'active':''} onClick={()=>setFilter(f)} key={f}>{f}</button>)}</div></div>
         <div className="tasks">{tasks.map(task => {
           const value=saved[task.id] || {note:'',checks:[],done:false}; const eligible=canFinish(task);
           const textReady=evaluateResponse(task.prompt, value.note, '', task.form==='Selbst'?'reflection':'group').ready;
           const guide=taskGuides[task.id];
           return <article className={`task ${task.form.toLowerCase()} ${value.done?'done':''}`} key={task.id}>
-            <div className="taskMeta"><span>{task.form}</span><span>{task.minutes} Min.</span></div><h3>{task.title}</h3><p className="taskPrompt">{task.prompt}</p>
+            <div className="taskMeta"><span>{task.form}</span><span>{task.minutes} Min.</span></div><h3>{task.title}</h3><p className="taskPrompt">{task.prompt}</p><button className="taskOpen" onClick={()=>setDialog({kind:'task',id:task.id})}><span>Arbeitsdialog öffnen</span><b>→</b></button>
             {task.roles&&<div className="roles">{task.roles.map((r,i)=><span key={r}>Rolle {i+1}<strong>{r}</strong></span>)}</div>}
             <div className="taskGuide"><div><span>Ausgangspunkt</span><p>{guide.material}</p></div><div><span>Genaues Ergebnis</span><p>{guide.format}</p></div><div className="taskExample"><span>Beispielanfang</span><p>{guide.example}</p></div></div>
             <div className="successCriteria"><span>Das muss enthalten sein</span><ul>{guide.criteria.map(item=><li key={item}>{item}</li>)}</ul></div>
@@ -73,6 +81,19 @@ export default function Wissenswelten() {
     </section>
     <section className="glossary" id="glossar"><div><p className="worldEyebrow">Begriffe prüfen</p><h2>Glossar</h2><p>Kurze Arbeitsdefinitionen – als Ausgangspunkt, nicht als letzte Antwort.</p><input value={glossaryQuery} onChange={e=>setGlossaryQuery(e.target.value)} placeholder="Begriff suchen …"/></div><div className="glossaryGrid">{words.map(([term,definition])=><article key={term}><strong>{term}</strong><p>{definition}</p></article>)}</div></section>
     <section className="sources"><div><p className="worldEyebrow">Wissenschaftlich weiterarbeiten</p><h2>Quellen & Editionen</h2><p>Direkte Einstiege in Primärtext, historisch-kritische Edition und fachlich verantwortete Materialien. Linkcheck: 01.09.2026.</p></div><div>{sources.map(([label,url])=><a href={url} target="_blank" rel="noreferrer" key={url}>{label}<span>↗</span></a>)}</div></section>
+    {dialog?.kind==='fact'&&<div className="dialogBackdrop" role="presentation" onMouseDown={()=>setDialog(null)}><section className="learningDialog factDialog" role="dialog" aria-modal="true" aria-labelledby="fact-dialog-title" onMouseDown={event=>event.stopPropagation()}>
+      <header><div><span>{activeModule.number} · {depth}</span><h2 id="fact-dialog-title">Denkfenster</h2></div><button onClick={()=>setDialog(null)} aria-label="Dialog schliessen">×</button></header>
+      <div className="dialogBody"><div className="dialogStatement"><span>Ausgangspunkt {String(dialog.index+1).padStart(2,'0')}</span><p>{facts[dialog.index]}</p></div><div className="thinkingSteps"><article><span>1</span><div><strong>Beobachten</strong><p>Formuliere den Gedanken in einem eigenen Satz. Welche zwei Schlüsselbegriffe dürfen nicht fehlen?</p></div></article><article><span>2</span><div><strong>Prüfen</strong><p>Woran im Primärtext oder in der Edition lässt sich diese Aussage überprüfen? Notiere einen konkreten Anhaltspunkt.</p></div></article><article><span>3</span><div><strong>Weiterdenken</strong><p>Welche Grenze, Gegenposition oder offene Frage entsteht daraus?</p></div></article></div><label className="dialogWriting"><span>Deine Forschungsnotiz</span><textarea autoFocus value={saved[`fact-${activeModule.id}-${depth}-${dialog.index}`]?.note||''} onChange={e=>change(`fact-${activeModule.id}-${depth}-${dialog.index}`,{note:e.target.value})} placeholder="Eigene Formulierung – Textbezug – offene Frage …"/></label><TextFeedback prompt={facts[dialog.index]} answer={saved[`fact-${activeModule.id}-${depth}-${dialog.index}`]?.note||''}/></div>
+      <footer><button onClick={()=>setDialog(null)}>Notiz sichern & schliessen</button></footer>
+    </section></div>}
+    {dialogTask&&<div className="dialogBackdrop" role="presentation" onMouseDown={()=>setDialog(null)}><section className="learningDialog taskDialog" role="dialog" aria-modal="true" aria-labelledby="task-dialog-title" onMouseDown={event=>event.stopPropagation()}>
+      <header><div><span>{activeModule.number} · {dialogTask.form} · {dialogTask.minutes} Minuten</span><h2 id="task-dialog-title">{dialogTask.title}</h2></div><button onClick={()=>setDialog(null)} aria-label="Dialog schliessen">×</button></header>
+      <div className="dialogBody"><p className="dialogPrompt">{dialogTask.prompt}</p>{dialogTask.roles&&<div className="dialogRoles">{dialogTask.roles.map((role,index)=><div key={role}><span>Person {index+1}</span><strong>{role}</strong><small>{index===0?'Startet mit Beobachtung und erstem Beleg.':index===1?'Prüft, widerspricht und ergänzt einen Beleg.':'Hält Konsens, Dissens und Schluss fest.'}</small></div>)}</div>}
+      <div className="dialogTwoCols"><article><span>Material</span><p>{taskGuides[dialogTask.id].material}</p></article><article><span>Abgabeformat</span><p>{taskGuides[dialogTask.id].format}</p></article></div><div className="dialogExample"><span>Satzstarter</span><p>{taskGuides[dialogTask.id].example}</p></div>
+      <div className="dialogWorkflow"><span>Schritt für Schritt</span>{dialogTask.steps.map((step,index)=><label key={step}>{dialogTask.form==='Selbst'?<b>{index+1}</b>:<input type="checkbox" checked={!!saved[dialogTask.id]?.checks[index]} onChange={e=>change(dialogTask.id,{checks:Object.assign([],saved[dialogTask.id]?.checks||[],{[index]:e.target.checked})})}/>}<p><strong>Schritt {index+1}</strong>{step}</p></label>)}</div>
+      <label className="dialogWriting"><span>{dialogTask.form==='Selbst'?'Deine Reflexion':'Euer gemeinsames Ergebnis'} · {dialogTask.product}</span><textarea value={saved[dialogTask.id]?.note||''} onChange={e=>change(dialogTask.id,{note:e.target.value})} placeholder={dialogTask.form==='Selbst'?'Ich habe beobachtet … Das bedeutet für mich …':'Person 1: … / Person 2: … / Gemeinsamer Entscheid: …'}/></label><TextFeedback prompt={`${dialogTask.prompt} ${dialogTask.product}`} answer={saved[dialogTask.id]?.note||''} mode={dialogTask.form==='Selbst'?'reflection':'group'}/></div>
+      <footer><button className="secondary" onClick={()=>setDialog(null)}>Später weiterarbeiten</button><button disabled={(!canFinish(dialogTask)||!evaluateResponse(dialogTask.prompt,saved[dialogTask.id]?.note||'','',dialogTask.form==='Selbst'?'reflection':'group').ready)&&!saved[dialogTask.id]?.done} onClick={()=>{change(dialogTask.id,{done:!saved[dialogTask.id]?.done}); if(!saved[dialogTask.id]?.done)setDialog(null);}}>{saved[dialogTask.id]?.done?'Abschluss zurücknehmen':'Auftrag abschliessen'}</button></footer>
+    </section></div>}
     <footer className="worldFooter"><a href="../">← Zur filmischen Lektüre</a><p>Faust Leseraum · Lernstände werden nur lokal gespeichert.</p></footer>
   </main>;
 }
