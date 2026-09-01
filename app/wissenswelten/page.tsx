@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { glossary, modules, sources, type Task } from './data';
 import './wissenswelten.css';
@@ -45,7 +44,7 @@ export default function Wissenswelten() {
   }
 
   return <main className="worlds">
-    <header className="worldTop"><Link className="worldBrand" href="/"><span>F·I</span> Faust Leseraum</Link><nav><a href="#module">Module</a><a href="#glossar">Glossar</a><button onClick={exportNotes}>Erkenntniskarte exportieren</button></nav><div className="worldProgress">{completed}/18</div></header>
+    <header className="worldTop"><a className="worldBrand" href="../"><span>F·I</span> Faust Leseraum</a><nav><a href="#module">Module</a><a href="#glossar">Glossar</a><button onClick={exportNotes}>Erkenntniskarte exportieren</button></nav><div className="worldProgress">{completed}/18</div></header>
     <section className="worldHero"><div><p className="worldEyebrow">Interaktive Lernwerkstatt</p><h1>Fausts<br/><em>Wissenswelten</em></h1></div><div className="worldIntro"><p>Sechs Zugänge zu Erkenntnis, Natur, Philosophie und Verantwortung. Erst selbst erfahren, dann im Gegenüber prüfen.</p><div className="socialLegend"><span>● Selbst</span><span>● Tandem</span><span>● Trio</span></div><p className="privacy">Deine Notizen bleiben auf diesem Gerät. Du entscheidest, was du teilst.</p></div></section>
     <section className="moduleMap" aria-label="Module">{modules.map((m,i)=><button key={m.id} className={i===active?'active':''} onClick={()=>{setActive(i); setFilter('Alle'); document.getElementById('module')?.scrollIntoView({behavior:'smooth'});}}><span>{m.number}</span><strong>{m.title}</strong><small>{m.question}</small></button>)}</section>
     <section className="moduleArea" id="module">
@@ -68,6 +67,6 @@ export default function Wissenswelten() {
     </section>
     <section className="glossary" id="glossar"><div><p className="worldEyebrow">Begriffe prüfen</p><h2>Glossar</h2><p>Kurze Arbeitsdefinitionen – als Ausgangspunkt, nicht als letzte Antwort.</p><input value={glossaryQuery} onChange={e=>setGlossaryQuery(e.target.value)} placeholder="Begriff suchen …"/></div><div className="glossaryGrid">{words.map(([term,definition])=><article key={term}><strong>{term}</strong><p>{definition}</p></article>)}</div></section>
     <section className="sources"><div><p className="worldEyebrow">Wissenschaftlich weiterarbeiten</p><h2>Quellen & Editionen</h2><p>Direkte Einstiege in Primärtext, historisch-kritische Edition und fachlich verantwortete Materialien. Linkcheck: 01.09.2026.</p></div><div>{sources.map(([label,url])=><a href={url} target="_blank" rel="noreferrer" key={url}>{label}<span>↗</span></a>)}</div></section>
-    <footer className="worldFooter"><Link href="/">← Zur filmischen Lektüre</Link><p>Faust Leseraum · Lernstände werden nur lokal gespeichert.</p></footer>
+    <footer className="worldFooter"><a href="../">← Zur filmischen Lektüre</a><p>Faust Leseraum · Lernstände werden nur lokal gespeichert.</p></footer>
   </main>;
 }
