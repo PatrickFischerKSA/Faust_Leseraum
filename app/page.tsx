@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { FULL_FILM_ID, scenes, TEXT_URL } from './data';
+import { evaluateResponse, TextFeedback } from './feedback';
 
 type Answers = Record<number, string>;
 
@@ -72,6 +73,7 @@ export default function Home() {
 
   const scene = scenes[sceneIndex];
   const question = scene.questions[questionIndex] || scene.questions[0];
+  const currentFeedback = evaluateResponse(question.text, answers[question.id] || '', scene.slug);
   const progress = Math.round((done.length / TOTAL) * 100);
 
   const filteredScenes = useMemo(() => {
@@ -223,9 +225,10 @@ export default function Home() {
           <div className="promptHint"><span>⌁</span><p><strong>Filmspur</strong>Achte darauf, wie Raum, Stimme, Körper und Rhythmus die Textaussage verändern.</p></div>
           <label htmlFor="answer">Deine Beobachtung</label>
           <textarea id="answer" value={answers[question.id] || ''} onChange={(event) => setAnswers((current) => ({ ...current, [question.id]: event.target.value }))} placeholder="These · Beleg aus dem Text · Beobachtung im Film …" />
+          <TextFeedback prompt={question.text} answer={answers[question.id] || ''} context={scene.slug} />
           <div className="answerFooter">
             <span>{(answers[question.id] || '').length} Zeichen · lokal gespeichert</span>
-            <button className={done.includes(question.id) ? 'complete active' : 'complete'} onClick={() => toggleDone(question.id)}>{done.includes(question.id) ? '✓ Bearbeitet' : 'Als bearbeitet markieren'}</button>
+            <button disabled={!currentFeedback.ready && !done.includes(question.id)} className={done.includes(question.id) ? 'complete active' : 'complete'} onClick={() => toggleDone(question.id)}>{done.includes(question.id) ? '✓ Bearbeitet' : currentFeedback.ready ? 'Als bearbeitet markieren' : 'Feedback noch umsetzen'}</button>
           </div>
           <div className="questionNav">
             <button onClick={() => nextQuestion(-1)} disabled={sceneIndex === 0 && questionIndex === 0}>← Zurück</button>

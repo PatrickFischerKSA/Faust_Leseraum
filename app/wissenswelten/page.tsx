@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { glossary, modules, sources, type Task } from './data';
+import { evaluateResponse, TextFeedback } from '../feedback';
 import './wissenswelten.css';
 
 type Saved = Record<string, { note: string; checks: boolean[]; done: boolean }>;
@@ -56,12 +57,14 @@ export default function Wissenswelten() {
         <div className="taskHeading"><div><p className="worldEyebrow">Erfahrung → Austausch → Urteil</p><h2>Aufträge</h2></div><div className="taskFilters">{(['Alle','Selbst','Tandem','Trio'] as const).map(f=><button className={filter===f?'active':''} onClick={()=>setFilter(f)} key={f}>{f}</button>)}</div></div>
         <div className="tasks">{tasks.map(task => {
           const value=saved[task.id] || {note:'',checks:[],done:false}; const eligible=canFinish(task);
+          const textReady=evaluateResponse(task.prompt, value.note, '', task.form==='Selbst'?'reflection':'group').ready;
           return <article className={`task ${task.form.toLowerCase()} ${value.done?'done':''}`} key={task.id}>
             <div className="taskMeta"><span>{task.form}</span><span>{task.minutes} Min.</span></div><h3>{task.title}</h3><p className="taskPrompt">{task.prompt}</p>
             {task.roles&&<div className="roles">{task.roles.map((r,i)=><span key={r}>Rolle {i+1}<strong>{r}</strong></span>)}</div>}
             <ol>{task.steps.map((step,i)=><li key={step}><label><input type="checkbox" disabled={task.form==='Selbst'} checked={!!value.checks[i]} onChange={e=>change(task.id,{checks:Object.assign([],value.checks,{[i]:e.target.checked})})}/><span>{step}</span></label></li>)}</ol>
             <label className="protocol"><span>{task.form==='Selbst'?'Deine private Reflexion':'Gemeinsames Protokoll'} · {task.product}</span><textarea value={value.note} onChange={e=>change(task.id,{note:e.target.value})} placeholder={task.form==='Selbst'?'Was hast du über dein eigenes Denken bemerkt?':'Haltet Beiträge aller Beteiligten, Belege und euren gemeinsamen Entscheid fest …'}/><small>{value.note.length} Zeichen · {task.form==='Selbst'?'mind. 80':'mind. 140'}</small></label>
-            <button className="finish" disabled={!eligible&&!value.done} onClick={()=>change(task.id,{done:!value.done})}>{value.done?'✓ Abgeschlossen':eligible?'Auftrag abschliessen':'Noch nicht vollständig'}</button>
+            <TextFeedback prompt={`${task.prompt} ${task.product}`} answer={value.note} mode={task.form==='Selbst'?'reflection':'group'} />
+            <button className="finish" disabled={(!eligible||!textReady)&&!value.done} onClick={()=>change(task.id,{done:!value.done})}>{value.done?'✓ Abgeschlossen':eligible&&textReady?'Auftrag abschliessen':'Feedback noch umsetzen'}</button>
           </article>})}</div>
       </div>
     </section>
