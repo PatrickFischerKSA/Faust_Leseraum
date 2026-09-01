@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { FULL_FILM_ID, scenes, TEXT_URL, type Question } from './data';
+import Link from 'next/link';
+import { FULL_FILM_ID, scenes, TEXT_URL } from './data';
 
 type Answers = Record<number, string>;
 
@@ -55,11 +56,13 @@ export default function Home() {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect -- hydration from browser-only storage */
     try {
       setAnswers(JSON.parse(localStorage.getItem('faust-answers') || '{}'));
       setDone(JSON.parse(localStorage.getItem('faust-done') || '[]'));
     } catch { /* A fresh start is safer than blocking the lesson. */ }
     setHydrated(true);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   useEffect(() => {
@@ -118,6 +121,7 @@ export default function Home() {
           <span>Faust Leseraum</span>
         </a>
         <nav className="topnav" aria-label="Werkzeuge">
+          <Link className="navButton" href="/wissenswelten">Wissenswelten</Link>
           <button className={overview ? 'navButton active' : 'navButton'} onClick={() => setOverview(!overview)}>Szenenplan</button>
           <button className="navButton" onClick={() => downloadWork(answers, done)}>Exportieren</button>
           <a className="navButton" href={TEXT_URL} target="_blank" rel="noreferrer">Volltext ↗</a>
@@ -230,7 +234,7 @@ export default function Home() {
 
       <footer>
         <div><span className="brandMark">F·I</span><p>Eine interaktive Lernumgebung zu Johann Wolfgang von Goethes <em>Faust I</em>.</p></div>
-        <div className="footerLinks"><a href={TEXT_URL} target="_blank" rel="noreferrer">Projekt Gutenberg</a><a href={`https://www.youtube.com/watch?v=${FULL_FILM_ID}`} target="_blank" rel="noreferrer">Filmfassung 1960</a><button onClick={() => { if (window.confirm('Alle lokalen Antworten und Markierungen löschen?')) { setAnswers({}); setDone([]); } }}>Fortschritt löschen</button></div>
+        <div className="footerLinks"><Link href="/wissenswelten">Fausts Wissenswelten</Link><a href={TEXT_URL} target="_blank" rel="noreferrer">Projekt Gutenberg</a><a href={`https://www.youtube.com/watch?v=${FULL_FILM_ID}`} target="_blank" rel="noreferrer">Filmfassung 1960</a><button onClick={() => { if (window.confirm('Alle lokalen Antworten und Markierungen löschen?')) { setAnswers({}); setDone([]); } }}>Fortschritt löschen</button></div>
       </footer>
     </main>
   );
