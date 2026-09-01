@@ -28,75 +28,75 @@ const task = (id: string, title: string, form: Task['form'], minutes: number, pr
 
 export const modules: Module[] = [
   {
-    id: 'werkstatt', number: '01', title: 'Goethes Faust-Werkstatt', question: 'Wie verändert ein Lebenswerk seine Form?',
-    intro: 'Vom frühen Entwurf bis zum postum gedruckten zweiten Teil: Entstehung wird hier als offener Denkprozess sichtbar.', texts: 'Urfaust · Fragment (1790) · Faust I (1808) · Faust II (1832/33)',
+    id: 'werkstatt', number: '01', title: 'Versionen, Fehler, Neustarts', question: 'Warum ist Version 1.0 fast nie die beste?',
+    intro: 'Faust war kein fertiger Geistesblitz. Goethe änderte, strich und startete über Jahrzehnte neu – wie bei einem Projekt, das mit jeder Version etwas anderes kann.', texts: 'Urfaust · Fragment (1790) · Faust I (1808) · Faust II (1832/33)',
     basis: ['Goethe arbeitete über Jahrzehnte an verschiedenen Fassungen.', '„Urfaust“ ist eine spätere Bezeichnung; der Text wurde nicht unter diesem Titel von Goethe publiziert.', 'Fassungsvergleich bedeutet: Unterschiede beschreiben, belegen und erst dann deuten.'],
     deeper: ['Zeitleiste: 1772–75 frühe Arbeit · 1790 Fragment · 1797 intensive Wiederaufnahme · 1808 Faust I · 1831 Abschlussarbeit an Faust II · 1833 postumer Druck.', 'Die Werkstatt-Perspektive widerspricht der Idee eines einzigen, plötzlich entstandenen Meisterwerks.'],
     research: ['Vergleiche eine Passage in zwei Fassungen der historisch-kritischen Faustedition.', 'Dokumentiere Lesart, Materialität und mögliche dramaturgische Wirkung getrennt.'],
     tasks: [
-      task('w-self','Mein unfertiges Werk','Selbst',12,'Erinnere dich an ein Projekt, das durch Unterbrechungen besser, anders oder schwieriger wurde. Was würde eine Werkstattansicht zeigen?','Private Werkstattnotiz (120–180 Wörter)',['Wähle ein ungefährliches Beispiel.','Notiere drei Wendepunkte.','Formuliere, was du heute anders verstehst.']),
-      task('w-pair','Zwei Fassungen – zwei Wirkungen','Tandem',24,'Vergleicht eine frühe und eine spätere Textfassung. Trennt Beobachtung und Deutung.','Vergleichstabelle mit drei belegten Veränderungen',['Lest beide Fassungen einzeln.','Markiert dieselbe Passage.','Einigt euch auf drei Unterschiede.'],['Textdetektiv:in','Wirkungsprüfer:in']),
-      task('w-trio','Redaktionskonferenz','Trio',30,'Entscheidet begründet, welche Fassung ihr auf einer Bühne zeigen würdet.','90-Sekunden-Pitch plus Gegenargument',['Jede Person bringt einen Textbeleg ein.','Diskutiert ein Gegenargument.','Formuliert einen gemeinsamen Entscheid.'],['Historiker:in','Dramaturg:in','Skeptiker:in'])
+      task('w-self','Dein Versionenverlauf','Selbst',12,'Zeige an einem echten Projekt: Was war Version 1.0, was hat nicht funktioniert und was würdest du heute updaten?','Privates Update-Log (120–180 Wörter)',['Nimm ein unverfängliches Beispiel.','Halte drei konkrete Versionen fest.','Schreibe einen Satz: Das würde ich heute anders machen.']),
+      task('w-pair','Was ändert ein einziges Wort?','Tandem',24,'Findet in zwei Faust-Fassungen drei Änderungen. Beschreibt nicht nur, was anders ist, sondern was beim Lesen oder Spielen dadurch passiert.','Vorher-Nachher-Tabelle mit drei Textbelegen',['Lest beide Fassungen.','Markiert dieselbe Stelle.','Formuliert für jede Änderung eine Wirkung.'],['Findet Änderungen','Testet die Wirkung']),
+      task('w-trio','Welche Version würdet ihr zeigen?','Trio',30,'Ihr habt 90 Sekunden, um eure Fassungswahl für eine heutige Inszenierung zu pitchen. Eine Person muss bewusst dagegenhalten.','90-Sekunden-Pitch plus stärkstes Gegenargument',['Jede Person bringt einen Beleg.','Nehmt das Gegenargument ernst.','Trefft einen gemeinsamen Entscheid.'],['Textbeleg','Bühnenidee','Reality-Check'])
     ]
   },
   {
-    id:'krise', number:'02', title:'Die Krise des Gelehrten', question:'Was geschieht, wenn Wissen nicht mehr trägt?',
-    intro:'Fausts Eingangsmonolog verbindet Wissensbilanz, Selbstzweifel und Grenzüberschreitung. Wagner bildet dazu eine produktive Kontrastfigur.', texts:'Nacht · Vor dem Tor',
+    id:'krise', number:'02', title:'Zu viel Wissen, kein Plan?', question:'Was bringt Wissen, wenn du trotzdem nicht weisst, was du tun sollst?',
+    intro:'Faust kennt unfassbar viel und fühlt sich trotzdem leer. Das ist keine verstaubte Gelehrtenfrage: Auch zwölf Tabs, Tutorials und Feeds ergeben noch keine Richtung.', texts:'Nacht · Vor dem Tor',
     basis:['Faust zählt akademische Wissensgebiete auf und erklärt sie für unzureichend.','Seine Krise ist zugleich Erkenntnis-, Sinn- und Lebenskrise.','Wagner vertraut stärker auf überliefertes, methodisches Wissen.'],
     deeper:['Wissen, Erfahrung und Sinn sind im Monolog nicht dasselbe.','Die Gründgens-Verfilmung macht die Krise durch Stimme, Blick, Raum und Rhythmus körperlich wahrnehmbar.'],
     research:['Prüfe, wie Bühnenanweisungen und filmische Mittel unterschiedliche Deutungen erzeugen.','Entwickle eine begründete Diagnose ohne Faust psychologisch festzuschreiben.'],
     tasks:[
-      task('k-self','Wo Wissen endet','Selbst',10,'Beschreibe eine Situation, in der mehr Information ein Problem nicht gelöst hat. Welche andere Form von Orientierung half?','Reflexionskarte mit „Wissen / Erfahrung / Wert“',['Wähle nur, was du teilen möchtest.','Trenne Fakten, Gefühle und Wertungen.','Markiere einen offenen Punkt.']),
-      task('k-pair','Faust oder Wagner?','Tandem',22,'Übernehmt gegensätzliche Positionen: radikale Erfahrung oder geduldige Gelehrsamkeit. Wechselt nach fünf Minuten die Seite.','Gemeinsames Urteil mit je zwei Stärken und Risiken',['Position A verteidigen.','Rollenwechsel.','Gemeinsames drittes Urteil bilden.'],['Faust-Stimme','Wagner-Stimme']),
-      task('k-trio','Krisen-Lesung','Trio',25,'Inszeniert 45 Sekunden des Monologs und begründet drei Entscheidungen zu Stimme, Raum und Pause.','Mini-Inszenierung plus Regienotiz',['Textstelle festlegen.','Drei Varianten testen.','Wirkung gemeinsam auswerten.'],['Sprecher:in','Regie','Beobachter:in'])
+      task('k-self','Zwölf Tabs, keine Antwort','Selbst',10,'Beschreibe einen Moment, in dem du viel recherchiert hast und danach trotzdem nicht wusstest, was richtig ist. Was fehlte wirklich?','Kurzer Reality-Check: Information / Orientierung / nächster Schritt',['Teile nur, was okay ist.','Nenne die konkrete Frage.','Formuliere einen hilfreichen nächsten Schritt.']),
+      task('k-pair','Faust vs. Wagner – Seitenwechsel','Tandem',22,'Eine Person verteidigt Fausts Drang nach echter Erfahrung, die andere Wagners geduldiges Lernen. Nach fünf Minuten tauscht ihr die Seite.','Vier-Felder-Check mit Stärken und Risiken',['Verteidigt eure erste Seite.','Wechselt wirklich die Position.','Baut aus beiden Seiten einen brauchbaren Rat.'],['Stimme Faust','Stimme Wagner']),
+      task('k-trio','Sprecht den Breakdown','Trio',25,'Spielt dieselben 45 Sekunden aus Fausts Monolog einmal kontrolliert und einmal kurz vor dem Zusammenbruch. Was verändert sich?','Zwei Clips/Lesungen plus drei konkrete Beobachtungen',['Wählt eine kurze Textstelle.','Testet zwei extreme Spielweisen.','Nennt drei Wirkungsunterschiede.'],['Spricht','Inszeniert','Beobachtet'])
     ]
   },
   {
-    id:'natur', number:'03', title:'Natur erkennen', question:'Beobachten wir Natur – oder ordnen wir sie?',
-    intro:'Goethes naturwissenschaftliches Denken lädt dazu ein, genaue Anschauung, Modell und Messung gegeneinander zu prüfen.', texts:'Nacht · Wald und Höhle · naturwissenschaftliche Schriften (Kontext)',
+    id:'natur', number:'03', title:'Was siehst du wirklich?', question:'Wann wird aus Beobachten schon Bewerten?',
+    intro:'Kamera, Filter und Algorithmus sortieren dauernd mit. Hier verlangsamst du den Blick und prüfst, was du tatsächlich wahrnimmst – und was dein Kopf sofort daraus macht.', texts:'Nacht · Wald und Höhle · naturwissenschaftliche Schriften (Kontext)',
     basis:['Goethe betrieb eigene Studien unter anderem zu Pflanzen, Farben und Geologie.','Goethe und Newton stehen nicht schlicht für Gefühl gegen Wissenschaft; sie untersuchen teils verschiedene Fragen und Verfahren.','Eine Beobachtung wird durch Begriffe, Geräte und Erwartungen mitgeprägt.'],
     deeper:['Phänomen, Modell und Erklärung sollten auseinandergehalten werden.','Fausts Wunsch nach Ganzheit kann Erkenntnis antreiben und zugleich methodische Grenzen übergehen.'],
     research:['Entwirf eine Beobachtung, die qualitative und messende Verfahren kombiniert.','Prüfe, welche Aussage dein Verfahren tatsächlich erlaubt.'],
     tasks:[
-      task('n-self','Sieben Minuten sehen','Selbst',12,'Beobachte einen alltäglichen Naturgegenstand sieben Minuten, ohne ihn zu erklären. Wann beginnen deine Begriffe das Sehen zu lenken?','Beobachtungsprotokoll plus Metareflexion',['Nur beschreiben.','Dann erste Deutungen ergänzen.','Unterschied farbig markieren.']),
-      task('n-pair','Zwei Erkenntniswege','Tandem',20,'Untersucht dasselbe Phänomen einmal qualitativ, einmal messend.','Doppelprotokoll mit Reichweite und Grenze',['Verfahren aufteilen.','Ergebnisse austauschen.','Gemeinsam Grenzen formulieren.'],['Anschauung','Messung']),
-      task('n-trio','Modellgericht','Trio',28,'Bewertet ein Erklärungsmodell: Was macht es sichtbar, was blendet es aus?','Urteil mit Beleg, Grenze und Verbesserung',['Modell rekonstruieren.','Gegenbeispiel suchen.','Verbesserung skizzieren.'],['Modellanwalt','Kritiker:in','Richter:in'])
+      task('n-self','Kamera aus, Augen an','Selbst',12,'Beobachte einen Gegenstand sieben Minuten ohne Foto, Suche oder Erklärung. Markiere danach, wo dein Kopf aus einem Detail sofort eine Geschichte gemacht hat.','Zwei Spalten: wirklich gesehen / daraus geschlossen',['Beschreibe zuerst nur Wahrnehmbares.','Ergänze danach deine Deutungen.','Markiere den ersten gedanklichen Sprung.']),
+      task('n-pair','Augen vs. Messgerät','Tandem',20,'Untersucht exakt dasselbe kleine Phänomen: eine Person nur mit den Sinnen, die andere mit Uhr, Lineal oder Temperaturanzeige.','Doppelprotokoll: Was kann jede Methode – und was nicht?',['Teilt die Verfahren auf.','Vergleicht eure Ergebnisse.','Nennt je eine blinde Stelle.'],['Beobachtet','Misst']),
+      task('n-trio','Dieses Modell lügt ein bisschen','Trio',28,'Nehmt ein Modell aus Schule oder Alltag. Zeigt, was es gut erklärt, wo es vereinfacht und wie ihr diese Grenze sichtbar machen würdet.','Modell-Check mit Verbesserungsskizze',['Erklärt das Modell kurz.','Findet einen irreführenden Punkt.','Skizziert ein ehrlicheres Modell.'],['Erklärt','Findet den Fehler','Baut um'])
     ]
   },
   {
-    id:'philosophie', number:'04', title:'Philosophische Horizonte', question:'Welche Denkmodelle öffnen den Text?',
-    intro:'Hiob, Spinoza, Kant und Idealismus dienen als prüfbare Deutungshorizonte – nicht als fertige Schlüssel.', texts:'Prolog im Himmel · Studierzimmer · „Im Anfang war die Tat“',
+    id:'philosophie', number:'04', title:'Worte, Werte, Entscheidungen', question:'Was kommt zuerst: reden, verstehen, können oder machen?',
+    intro:'Faust übersetzt nicht nur einen Satz. Er ringt darum, was wirklich etwas in Bewegung setzt. Genau das passiert auch, wenn du eine Entscheidung nicht nur ankündigen, sondern treffen musst.', texts:'Prolog im Himmel · Studierzimmer · „Im Anfang war die Tat“',
     basis:['Der Prolog erinnert in seiner Versuchsanordnung an das Buch Hiob, ist aber keine einfache Nacherzählung.','Spinoza und Kant können als Kontexte für Natur-, Erkenntnis- und Freiheitsfragen dienen.','Eine philosophische Deutung muss am Wortlaut überprüft werden.'],
     deeper:['„Im Anfang war die Tat“ verschiebt das Verhältnis von Wort, Sinn, Kraft und Handlung.','Kontextwissen ist hilfreich, wenn es Unterschiede ebenso sichtbar macht wie Ähnlichkeiten.'],
     research:['Formuliere zwei konkurrierende Deutungen derselben Passage.','Bewerte, welche Annahmen jeweils aus Text und Kontext stammen.'],
     tasks:[
-      task('p-self','Mein Anfangswort','Selbst',10,'Ordne Wort, Sinn, Kraft und Tat für eine eigene Entscheidung. Wo beginnt Veränderung für dich?','Private Rangfolge mit kurzer Begründung',['Begriffe spontan ordnen.','An einem Beispiel prüfen.','Rangfolge revidieren oder bestätigen.']),
-      task('p-pair','Deutung mit Widerstand','Tandem',22,'Eine Person liest die Passage philosophisch, die andere ausschliesslich textnah. Findet eine tragfähige Synthese.','Doppelthese und Synthese',['Zwei getrennte Lesarten schreiben.','Belege austauschen.','Grenzen der Synthese benennen.'],['Kontextleser:in','Textwächter:in']),
-      task('p-trio','Horizonte-Karte','Trio',30,'Verknüpft Hiob, Spinoza/Kant und die Tat-Passage, ohne direkte Einflüsse zu erfinden.','Begriffsnetz mit Legende und Unsicherheitsmarken',['Jede Person verantwortet einen Horizont.','Verbindungen als sicher/plausibel/offen markieren.','Netz gemeinsam erklären.'],['Hiob','Spinoza/Kant','Faust-Text'])
+      task('p-self','Reden oder machen?','Selbst',10,'Ordne Wort, Sinn, Kraft und Tat für eine konkrete Entscheidung dieser Woche. Teste, ob die Reihenfolge wirklich zu deinem Beispiel passt.','Persönliches Ranking mit Begründung',['Ordne die vier Wörter.','Teste sie an einer echten Entscheidung.','Ändere die Reihenfolge, wenn sie nicht passt.']),
+      task('p-pair','Textbeleg trifft grosse Idee','Tandem',22,'Eine Person bleibt hart am Wortlaut, die andere bringt eine philosophische Idee ein. Wo hilft der Kontext – und wo überdeckt er den Text?','Zwei Lesarten plus gemeinsame Grenze',['Schreibt getrennte Lesarten.','Fordert gegenseitig Belege.','Notiert, was offen bleibt.'],['Bleibt am Text','Bringt Kontext']),
+      task('p-trio','Connection Map ohne Fake Facts','Trio',30,'Verbindet Hiob, Spinoza/Kant und Fausts Tat-Passage. Markiert ehrlich: sicher belegt, plausible Parallele oder offene Frage.','Connection Map mit Unsicherheitslabels',['Jede Person übernimmt einen Kontext.','Markiert die Sicherheit jeder Verbindung.','Erklärt die spannendste Verbindung.'],['Hiob','Spinoza/Kant','Faust'])
     ]
   },
   {
-    id:'homunculus', number:'05', title:'Wissenschaft und künstliches Leben', question:'Darf Erkenntnis Leben herstellen?',
-    intro:'Homunculus verdichtet Fragen nach Machbarkeit, Verantwortung, Körper und Anerkennung künstlichen Lebens.', texts:'Faust II · Laboratorium · Klassische Walpurgisnacht',
+    id:'homunculus', number:'05', title:'KI, Körper, künstliches Leben', question:'Wenn wir etwas Intelligentes bauen: Was schulden wir ihm?',
+    intro:'Homunculus ist künstlich geschaffen, kann sprechen und will hinaus. Das führt direkt zu heutigen Fragen über KI, Biotechnologie, Abhängigkeit und Verantwortung.', texts:'Faust II · Laboratorium · Klassische Walpurgisnacht',
     basis:['Homunculus entsteht im Labor und bleibt zunächst an ein Gefäss gebunden.','Die Episode verbindet vormoderne Alchemie mit Fragen, die heute an Biotechnologie und KI erinnern können.','Aktualisierung ist ein Vergleich – keine Behauptung, Goethe habe heutige Technologien vorhergesagt.'],
     deeper:['Wer erzeugt, übernimmt Verantwortung für Bedingungen, Abhängigkeiten und Folgen.','Die Figur irritiert Grenzen zwischen natürlich/künstlich und Körper/Geist.'],
     research:['Vergleiche Homunculus mit einem aktuellen Technologiefall anhand klarer Kriterien.','Kennzeichne Analogien und historische Unterschiede.'],
     tasks:[
-      task('h-self','Meine Machbarkeitsgrenze','Selbst',12,'Bei welcher technischen Möglichkeit wird aus Neugier für dich Verantwortung? Formuliere ein persönliches Kriterium.','Wertekompass mit Grenze und Ausnahme',['Fall wählen.','Wert benennen.','Gegenargument fair ergänzen.']),
-      task('h-pair','Schöpfer und Geschöpf','Tandem',24,'Schreibt einen Dialog über Freiheit, Fürsorge und Abhängigkeit. Tauscht danach die Rollen.','Dialog mit Rollenwechsel und Schlussnotiz',['Positionen getrennt entwickeln.','Dialog führen.','Machtgefälle auswerten.'],['Erzeuger:in','Homunculus']),
-      task('h-trio','Ethikkommission','Trio',32,'Entscheidet über die Freigabe eines künstlichen Lebensprojekts. Bedingungen sind erlaubt.','Ethikvotum: Entscheid, drei Kriterien, Minderheitsnotiz',['Risiken und Nutzen sammeln.','Jede Rolle gibt ein Votum.','Konsens oder Minderheit dokumentieren.'],['Forschung','Ethik','Betroffene Öffentlichkeit'])
+      task('h-self','Wo wäre deine rote Linie?','Selbst',12,'Nimm eine konkrete KI- oder Biotech-Anwendung. Was dürfte sie für dich nie ohne Zustimmung tun – und warum?','Wertekompass mit roter Linie und Ausnahme',['Wähle einen konkreten Fall.','Formuliere eine klare Grenze.','Prüfe ein starkes Gegenargument.']),
+      task('h-pair','Chat zwischen KI und Entwicklung','Tandem',24,'Schreibt einen Dialog: Das geschaffene System fordert Freiheit, die Entwicklung verweist auf Verantwortung. Dann tauscht ihr die Rollen.','Zwölf Chatnachrichten plus kurzer Macht-Check',['Entwickelt beide Positionen.','Tauscht die Rollen.','Benennt das Machtgefälle.'],['Entwicklung','System']),
+      task('h-trio','Release oder Stopp?','Trio',32,'Ein künstliches Wesen kann sprechen, aber noch nicht selbständig überleben. Entscheidet über die Freigabe und formuliert überprüfbare Bedingungen.','Release-Entscheid mit drei Bedingungen und Dissens',['Sammelt Nutzen und Risiken.','Gebt drei Einzelvoten ab.','Dokumentiert Konsens oder Widerspruch.'],['Entwicklung','Ethik','Betroffene'])
     ]
   },
   {
-    id:'fortschritt', number:'06', title:'Fortschritt, Macht und Verantwortung', question:'Wer bezahlt für grosse Entwürfe?',
-    intro:'Papiergeld, Geologie und Landgewinnung zeigen Fortschritt als wirksame Erzählung – samt Verdrängung, Gewalt und Nebenfolgen.', texts:'Faust II · Kaiserhof · Bergschluchten · Grosser Vorhof des Palasts',
+    id:'fortschritt', number:'06', title:'Wer gewinnt, wer zahlt?', question:'Ist etwas schon Fortschritt, nur weil es neu und praktisch ist?',
+    intro:'Faust plant gross und blendet Nebenwirkungen aus. Das kennst du von Plattformen, KI, Lieferdiensten oder Bauprojekten: bequem für einige, teuer für andere.', texts:'Faust II · Kaiserhof · Bergschluchten · Grosser Vorhof des Palasts',
     basis:['Faust II verknüpft wirtschaftliche, technische und politische Macht.','Das Papiergeld verspricht Handlungsfähigkeit durch Vertrauen und Zeichen.','Fausts Landprojekt verbindet Zukunftsvision mit Enteignung und Gewalt.'],
     deeper:['Fortschritt ist perspektivisch: Gewinne und Kosten verteilen sich ungleich.','Eine Folgenabschätzung muss Betroffene und nicht beabsichtigte Wirkungen einbeziehen.'],
     research:['Baue eine Wirkungsanalyse mit kurzfristigen und langfristigen Folgen.','Prüfe ein heutiges Grossprojekt, ohne die historischen Situationen gleichzusetzen.'],
     tasks:[
-      task('f-self','Mein Fortschrittsbegriff','Selbst',12,'Nenne eine Veränderung, die für dich Gewinn und Verlust zugleich war. Wer hätte sie anders bewertet?','Bilanz aus Gewinn, Preis und Perspektivwechsel',['Beispiel eingrenzen.','Zwei Wirkungen benennen.','Fremdperspektive ergänzen.']),
-      task('f-pair','Papiergeld-Simulation','Tandem',24,'Eine Person wirbt für die Ausgabe, eine prüft Vertrauen, Deckung und Folgen. Wechselt die Position.','Risikoampel und gemeinsamer Entscheid',['Argumente vorbereiten.','Rollenwechsel.','Drei Bedingungen festlegen.'],['Finanzrat','Kontrollrat']),
-      task('f-trio','Landgewinnung: drei Stimmen','Trio',32,'Verhandelt Fausts Projekt aus Sicht von Planung, betroffener Bevölkerung und Umwelt/Zukunft.','Beschluss mit Nutzen, Kosten, Schutzauflagen und Dissens',['Einzelvoten schreiben.','Folgenmatrix erstellen.','Gemeinsamen Beschluss verhandeln.'],['Planung','Betroffene','Umwelt/Zukunft'])
+      task('f-self','Praktisch für mich – Problem für wen?','Selbst',12,'Nimm eine Neuerung, die deinen Alltag leichter macht. Finde eine Person, Gruppe oder Umweltfolge, die dafür einen Preis zahlt.','Impact-Check aus drei Perspektiven',['Nenne die konkrete Neuerung.','Beschreibe Nutzen und Preis.','Ergänze eine übersehene Perspektive.']),
+      task('f-pair','100 Geldscheine, nur 60 Güter','Tandem',24,'Die Kasse ist leer: Würdet ihr 100 neue Einheiten ausgeben, obwohl nur Güter im Wert von 60 vorhanden sind? Wechselt danach die Position.','Risikoampel und Entscheid mit Bedingungen',['Rechnet mit den Zahlen.','Wechselt die Seite.','Formuliert drei Bedingungen.'],['Will ausgeben','Prüft die Folgen']),
+      task('f-trio','10 000 profitieren, 40 verlieren ihr Zuhause','Trio',32,'Ein Küstenprojekt schafft Wohnraum, siedelt aber 40 Haushalte um und verkleinert ein Feuchtgebiet. Verhandelt einen Entscheid, der die Kosten nicht versteckt.','Folgenmatrix, Schutzauflagen und sichtbarer Dissens',['Schreibt drei Einzelvoten.','Tragt Nutzen und Schäden ein.','Verhandelt einen gemeinsamen Beschluss.'],['Plant','Ist betroffen','Vertritt Zukunft/Umwelt'])
     ]
   }
 ];
