@@ -1,7 +1,13 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
+const [githubOwner, githubRepository] = (process.env.GITHUB_REPOSITORY || '').split('/');
+const publicOrigin = process.env.GITHUB_ACTIONS === 'true' && githubOwner && githubRepository
+  ? `https://${githubOwner}.github.io/${githubRepository}`
+  : 'https://faust-leseraum.patrickoliverfischer.chatgpt.site';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(publicOrigin),
   title: 'Faust Leseraum · Goethe × Gründgens',
   description: 'Interaktive Lektüre zu Goethes Faust I mit Fragen und Filmsequenzen der Gründgens-Verfilmung von 1960.',
   openGraph: {

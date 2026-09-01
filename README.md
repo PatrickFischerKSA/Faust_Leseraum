@@ -29,6 +29,29 @@ npm run build
 
 Das Projekt nutzt React, Next.js/Vinext und ist als statische, clientseitige Lernanwendung ohne geheime Umgebungsvariablen angelegt. Es kann als GitHub-Repository versioniert und über eine Cloudflare-Worker-kompatible Plattform veröffentlicht werden.
 
+## Auf GitHub Pages aktivieren
+
+Die Veröffentlichungs-Automation ist bereits vollständig eingerichtet. Es sind nur diese Schritte nötig:
+
+1. Auf GitHub ein leeres Repository namens `faust-leseraum` anlegen.
+2. Dieses Projekt dorthin übertragen:
+
+   ```bash
+   git remote add origin https://github.com/DEIN-GITHUB-NAME/faust-leseraum.git
+   git push -u origin main
+   ```
+
+3. Im GitHub-Repository **Settings → Pages** öffnen und bei **Source** die Option **GitHub Actions** wählen.
+
+Der enthaltene Workflow baut und veröffentlicht die Lernplattform danach automatisch. Jeder weitere Push auf `main` aktualisiert die öffentliche GitHub-Pages-Seite. Der Repository-Name darf auch anders lauten; der Basispfad wird automatisch erkannt.
+
+Für einen lokalen Test des GitHub-Pages-Builds:
+
+```bash
+GITHUB_ACTIONS=true GITHUB_REPOSITORY=lokal/faust-leseraum \
+NEXT_PUBLIC_BASE_PATH=/faust-leseraum npm run build:github
+```
+
 ## Quellen
 
 - Goethe-Volltext: [Projekt Gutenberg](https://www.projekt-gutenberg.org/goethe/faust1/chap001.html)
