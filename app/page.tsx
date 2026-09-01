@@ -119,8 +119,11 @@ export default function Home() {
           <span className="brandMark">F·I</span>
           <span>Faust Leseraum</span>
         </a>
+        <nav className="areaNav" aria-label="Hauptbereiche">
+          <a className="active" href="#top" aria-current="page"><span>01</span> Leseraum</a>
+          <a href="./wissenswelten/"><span>02</span> Wissenswelten</a>
+        </nav>
         <nav className="topnav" aria-label="Werkzeuge">
-          <a className="navButton" href="./wissenswelten/">Wissenswelten</a>
           <button className={overview ? 'navButton active' : 'navButton'} onClick={() => setOverview(!overview)}>Szenenplan</button>
           <button className="navButton" onClick={() => downloadWork(answers, done)}>Exportieren</button>
           <a className="navButton" href={TEXT_URL} target="_blank" rel="noreferrer">Volltext ↗</a>
@@ -134,6 +137,7 @@ export default function Home() {
         <div className="heroAside">
           <p className="heroCopy">Goethes Text trifft auf die legendäre Inszenierung von 1960. Szene für Szene, Frage für Frage.</p>
           <a href="#lesson" className="startLink">Lektüre beginnen <span>↓</span></a>
+          <a href="./wissenswelten/" className="worldsLink"><small>Danach weiterdenken</small><strong>Fausts Wissenswelten</strong><span>→</span></a>
         </div>
       </section>
 
