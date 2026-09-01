@@ -29,6 +29,8 @@ jobs:
 
       - name: GitHub Pages einrichten
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Abhängigkeiten installieren
         run: npm ci
