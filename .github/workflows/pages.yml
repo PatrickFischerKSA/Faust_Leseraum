@@ -27,9 +27,6 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Paketmanager angleichen
-        run: npm install --global npm@11.6.2
-
       - name: GitHub Pages einrichten
         uses: actions/configure-pages@v5
         with:
