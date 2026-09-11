@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { glossary, modules, sources, taskGuides, type Task } from './data';
-import { evaluateResponse, TextFeedback } from '../feedback';
+import { glossary, modules, sources, type Task } from './data';
+import { evaluateResponse } from '../feedback';
 import LifeLab from './LifeLab';
 import TextInquiry from './TextInquiry';
 import Studienwahllabor from './Studienwahllabor';
+import TaskArena from './TaskArena';
 import './wissenswelten.css';
 
 type Saved = Record<string, { note: string; checks: boolean[]; done: boolean }>;
@@ -54,7 +55,7 @@ export default function Wissenswelten() {
   }
   function canFinish(task: Task) {
     const value = saved[task.id];
-    return (value?.note.trim().length || 0) >= (task.form === 'Selbst' ? 80 : 140) && (task.form === 'Selbst' || task.steps.every((_, i) => value?.checks[i]));
+    return (value?.note.trim().length || 0) >= (task.form === 'Selbst' ? 60 : 100);
   }
   function exportNotes() {
     const lines = ['# Fausts Wissenswelten – Erkenntniskarte','',`Export: ${new Date().toLocaleString('de-CH')}`,''];
@@ -75,12 +76,11 @@ export default function Wissenswelten() {
         <div className="depthTabs">{(['Basis','Vertiefung','Forschung'] as const).map(d=><button className={depth===d?'active':''} onClick={()=>setDepth(d)} key={d}>{d}</button>)}</div>
         <div className="factGrid">{facts.map((fact,i)=><article key={fact}><span>0{i+1}</span><p>{fact}</p><button onClick={()=>setDialog({kind:'fact',index:i})}>{depth === 'Forschung' ? 'Forschungsfenster öffnen' : 'Denkfenster öffnen'} <b>↗</b></button></article>)}</div>
         <div className="workbenchStrip moduleRhythm">{investigationRhythms[activeModule.id].map((step,index)=><div key={step.title}><span>0{index+1}</span><p><strong>{step.title}</strong>{step.text}</p></div>)}</div>
-        <div className="taskHeading"><div><p className="worldEyebrow">Weiterführende Arbeit</p><h2>Aufträge allein, zu zweit oder zu dritt</h2></div><div className="taskFilters">{(['Alle','Selbst','Tandem','Trio'] as const).map(f=><button className={filter===f?'active':''} onClick={()=>setFilter(f)} key={f}>{f==='Selbst'?'Allein':f==='Tandem'?'Zu zweit':f==='Trio'?'Zu dritt':'Alle'}</button>)}</div></div>
+        <div className="taskHeading"><div><p className="worldEyebrow">Untersuchungsmissionen</p><h2>Solo, Duo oder Trio – ohne Arbeitsblatt</h2></div><div className="taskFilters">{(['Alle','Selbst','Tandem','Trio'] as const).map(f=><button className={filter===f?'active':''} onClick={()=>setFilter(f)} key={f}>{f==='Selbst'?'Solo':f==='Tandem'?'Duo':f==='Trio'?'Trio':'Alle'}</button>)}</div></div>
         <div className="tasks">{tasks.map(task => {
           const value=saved[task.id] || {note:'',checks:[],done:false};
-          const guide=taskGuides[task.id];
           return <article className={`task ${task.form.toLowerCase()} ${value.done?'done':''}`} key={task.id}>
-            <div className="taskMeta"><span>{task.form==='Selbst'?'Allein':task.form==='Tandem'?'Zu zweit':'Zu dritt'}</span><span>{task.minutes} Min.</span></div><h3>{task.title}</h3><p className="taskPrompt">{task.prompt}</p><div className="challengePreview"><span>Du brauchst</span><p>{guide.material}</p><small>{guide.criteria.length} klare Erfolgskriterien · Textfeedback inklusive</small></div><button className="taskOpen" onClick={()=>setDialog({kind:'task',id:task.id})}><span>{value.done?'Auftrag wieder öffnen':'Auftrag öffnen'}</span><b>→</b></button>
+            <div className="taskMeta"><span>{task.form==='Selbst'?'Solo':task.form==='Tandem'?'Duo':'Trio'}</span><span>{task.minutes} Min.</span></div><h3>{task.title}</h3><p className="taskPrompt">{task.prompt}</p><div className="challengePreview missionPreview"><span>Live-Untersuchung</span><p>Handeln · aufnehmen · Gegenprobe · am Wortlaut urteilen</p><small>Keine vorbereiteten Dialoge, kein Arbeitsblatt</small></div><button className="taskOpen" onClick={()=>setDialog({kind:'task',id:task.id})}><span>{value.done?'Mission wieder öffnen':'Mission starten'}</span><b>→</b></button>
           </article>})}</div>
       </div>
     </section>
@@ -92,12 +92,9 @@ export default function Wissenswelten() {
       <footer><button onClick={()=>setDialog(null)}>Notiz sichern & schliessen</button></footer>
     </section></div>}
     {dialogTask&&<div className="dialogBackdrop" role="presentation" onMouseDown={()=>setDialog(null)}><section className="learningDialog taskDialog" role="dialog" aria-modal="true" aria-labelledby="task-dialog-title" onMouseDown={event=>event.stopPropagation()}>
-      <header><div><span>{activeModule.number} · {dialogTask.form} · {dialogTask.minutes} Minuten</span><h2 id="task-dialog-title">{dialogTask.title}</h2></div><button onClick={()=>setDialog(null)} aria-label="Dialog schliessen">×</button></header>
-      <div className="dialogBody"><p className="dialogPrompt">{dialogTask.prompt}</p>{dialogTask.roles&&<div className="dialogRoles">{dialogTask.roles.map((role,index)=><div key={role}><span>Person {index+1}</span><strong>{role}</strong><small>{index===0?'Startet mit Beobachtung und erstem Beleg.':index===1?'Prüft, widerspricht und ergänzt einen Beleg.':'Hält Konsens, Dissens und Schluss fest.'}</small></div>)}</div>}
-      <div className="dialogTwoCols"><article><span>Material</span><p>{taskGuides[dialogTask.id].material}</p></article><article><span>Abgabeformat</span><p>{taskGuides[dialogTask.id].format}</p></article></div><div className="dialogExample"><span>Satzstarter</span><p>{taskGuides[dialogTask.id].example}</p></div>
-      <div className="dialogWorkflow"><span>Schritt für Schritt</span>{dialogTask.steps.map((step,index)=><label key={step}>{dialogTask.form==='Selbst'?<b>{index+1}</b>:<input type="checkbox" checked={!!saved[dialogTask.id]?.checks[index]} onChange={e=>change(dialogTask.id,{checks:Object.assign([],saved[dialogTask.id]?.checks||[],{[index]:e.target.checked})})}/>}<p><strong>Schritt {index+1}</strong>{step}</p></label>)}</div>
-      <label className="dialogWriting"><span>{dialogTask.form==='Selbst'?'Deine Reflexion':'Euer gemeinsames Ergebnis'} · {dialogTask.product}</span><textarea value={saved[dialogTask.id]?.note||''} onChange={e=>change(dialogTask.id,{note:e.target.value})} placeholder={dialogTask.form==='Selbst'?'Ich habe beobachtet … Das bedeutet für mich …':'Person 1: … / Person 2: … / Gemeinsamer Entscheid: …'}/></label><TextFeedback prompt={`${dialogTask.prompt} ${dialogTask.product}`} answer={saved[dialogTask.id]?.note||''} mode={dialogTask.form==='Selbst'?'reflection':'group'}/></div>
-      <footer><button className="secondary" onClick={()=>setDialog(null)}>Später weiterarbeiten</button><button disabled={(!canFinish(dialogTask)||!evaluateResponse(dialogTask.prompt,saved[dialogTask.id]?.note||'','',dialogTask.form==='Selbst'?'reflection':'group').ready)&&!saved[dialogTask.id]?.done} onClick={()=>{change(dialogTask.id,{done:!saved[dialogTask.id]?.done}); if(!saved[dialogTask.id]?.done)setDialog(null);}}>{saved[dialogTask.id]?.done?'Abschluss zurücknehmen':'Auftrag abschliessen'}</button></footer>
+      <header><div><span>{activeModule.number} · {dialogTask.form==='Selbst'?'Solo':dialogTask.form==='Tandem'?'Duo':'Trio'} · {dialogTask.minutes} Minuten</span><h2 id="task-dialog-title">{dialogTask.title}</h2></div><button onClick={()=>setDialog(null)} aria-label="Dialog schliessen">×</button></header>
+      <div className="dialogBody arenaBody"><TaskArena task={dialogTask} note={saved[dialogTask.id]?.note||''} onNote={note=>change(dialogTask.id,{note})}/></div>
+      <footer><button className="secondary" onClick={()=>setDialog(null)}>Mission verlassen</button><button disabled={(!canFinish(dialogTask)||!evaluateResponse(dialogTask.prompt,saved[dialogTask.id]?.note||'','',dialogTask.form==='Selbst'?'reflection':'group').ready)&&!saved[dialogTask.id]?.done} onClick={()=>{change(dialogTask.id,{done:!saved[dialogTask.id]?.done}); if(!saved[dialogTask.id]?.done)setDialog(null);}}>{saved[dialogTask.id]?.done?'Urteil wieder öffnen':'Urteil sichern'}</button></footer>
     </section></div>}
     <footer className="worldFooter"><a href="../">← Am Anfang war der Text</a><p>Faust-Lernplattform · Lernstände werden nur lokal gespeichert.</p></footer>
   </main>;
