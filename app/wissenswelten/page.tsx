@@ -20,6 +20,7 @@ const investigationRhythms:Record<string,{title:string;text:string}[]>={
 };
 
 export default function Wissenswelten() {
+  const mediaBase=process.env.NEXT_PUBLIC_BASE_PATH||'';
   const [active, setActive] = useState(0);
   const [depth, setDepth] = useState<'Basis'|'Vertiefung'|'Forschung'>('Basis');
   const [teacher, setTeacher] = useState(false);
@@ -85,7 +86,7 @@ export default function Wissenswelten() {
       </div>
     </section>
     <section className="glossary" id="glossar"><div><p className="worldEyebrow">Der Karteikasten</p><h2>Begriffe nachschlagen</h2><p>Kurze Arbeitsdefinitionen – als Ausgangspunkt, nicht als letzte Antwort.</p><input value={glossaryQuery} onChange={e=>setGlossaryQuery(e.target.value)} placeholder="Karte suchen …"/></div><div className="glossaryGrid">{words.map(([term,definition])=><article key={term}><span className="cardNotch"/><strong>{term}</strong><p>{definition}</p></article>)}</div></section>
-    <section className="sources"><div><p className="worldEyebrow">Der Handapparat</p><h2>Quellen & Editionen</h2><p>Direkte Einstiege in Primärtext, historisch-kritische Edition und fachlich verantwortete Materialien. Linkcheck: 01.09.2026.</p></div><div>{sources.map(([label,url],index)=><a href={url} target="_blank" rel="noreferrer" key={url}><b>{String(index+1).padStart(2,'0')}</b>{label}<span>↗</span></a>)}</div></section>
+    <section className="sources"><div><p className="worldEyebrow">Der Handapparat</p><h2>Film, Quellen & Editionen</h2><p>Der Entstehungsfilm liegt direkt in dieser Lernplattform. Die übrigen Einträge führen zu Primärtext, Edition und Begleitmaterial.</p></div><div><figure className="localSourceFilm"><div className="sourceFilmHead"><b>01</b><div><span>Film im lokalen Archiv</span><h3>Wie „Faust“ entstand</h3></div></div><video controls playsInline preload="metadata" src={`${mediaBase}/faust-entstehung-ard-alpha.mp4`}>Dein Browser kann dieses Video nicht abspielen.</video><figcaption><strong>Goethes Faust: Die Entstehungsgeschichte von Faust I</strong><span>ARD alpha / Bayerischer Rundfunk · Beitrag: Carola Richter · Stand: 30.03.2015</span><small>Die Filmdatei wird von dieser Plattform geladen. Es öffnet sich keine externe Seite.</small></figcaption></figure>{sources.map(([label,url],index)=><a href={url} target="_blank" rel="noreferrer" key={url}><b>{String(index+2).padStart(2,'0')}</b>{label}<span>↗</span></a>)}</div></section>
     {dialog?.kind==='fact'&&<div className="dialogBackdrop" role="presentation" onMouseDown={()=>setDialog(null)}><section className="learningDialog factDialog" role="dialog" aria-modal="true" aria-labelledby="fact-dialog-title" onMouseDown={event=>event.stopPropagation()}>
       <header><div><span>{activeModule.number} · {depth}</span><h2 id="fact-dialog-title">Denkfenster</h2></div><button onClick={()=>setDialog(null)} aria-label="Dialog schliessen">×</button></header>
       <div className="dialogBody"><div className="dialogStatement"><span>Ausgangspunkt {String(dialog.index+1).padStart(2,'0')}</span><p>{facts[dialog.index]}</p></div><TextInquiry moduleId={activeModule.id} factPrompt={facts[dialog.index]} note={saved[`fact-${activeModule.id}-${depth}-${dialog.index}`]?.note||''} onNote={note=>change(`fact-${activeModule.id}-${depth}-${dialog.index}`,{note})}/></div>
