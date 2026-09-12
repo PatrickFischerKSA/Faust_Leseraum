@@ -74,6 +74,8 @@ function downloadWork(answers: Answers, done: number[]) {
 
 export default function Home() {
   const mediaBase = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  const heroFilm = useRef<HTMLVideoElement>(null);
+  const [heroFilmPlaying, setHeroFilmPlaying] = useState(true);
   const [sceneIndex, setSceneIndex] = useState(2);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -81,6 +83,20 @@ export default function Home() {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState<'all' | 'open' | 'done'>('all');
   const [overview, setOverview] = useState(false);
+
+  async function toggleHeroFilm() {
+    const film = heroFilm.current;
+    if (!film) return;
+    if (film.paused) {
+      try {
+        await film.play();
+      } catch {
+        setHeroFilmPlaying(false);
+      }
+    } else {
+      film.pause();
+    }
+  }
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -162,6 +178,25 @@ export default function Home() {
       </header>
 
       <section className="hero" id="top">
+        <video
+          ref={heroFilm}
+          className="heroFilm"
+          src={`${mediaBase}/faust-pakt-hintergrund.mp4`}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          tabIndex={-1}
+          onPlay={() => setHeroFilmPlaying(true)}
+          onPause={() => setHeroFilmPlaying(false)}
+        />
+        <span className="heroFilmVeil" aria-hidden="true" />
+        <button className="heroFilmControl" type="button" onClick={toggleHeroFilm} aria-pressed={!heroFilmPlaying}>
+          <span aria-hidden="true">{heroFilmPlaying ? 'Ⅱ' : '▶'}</span>
+          {heroFilmPlaying ? 'Film anhalten' : 'Film fortsetzen'}
+        </button>
         <p className="eyebrow">Interaktive Lektüre · Goethe × Gründgens</p>
         <h1>Lesen.<br /><em>Sehen.</em> Denken.</h1>
         <div className="heroAside">
