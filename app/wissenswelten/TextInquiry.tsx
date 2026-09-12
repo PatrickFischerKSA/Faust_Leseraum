@@ -67,21 +67,21 @@ const labs: Record<string, TextLab> = {
     prompt: 'Auf Foto A ist …, auf Foto B … Gleich bleibt … Fausts Zeichen leistet ähnlich …, überschreitet aber den Befund bei …'
   },
   philosophie: {
-    scene: 'Studierzimmer I · Übersetzung',
-    title: 'Vier Übersetzungen erzeugen vier Anfänge',
-    intro: 'Hört eure vier Lesarten nochmals an. Verschiebt dann jede Variante zwischen Textbindung und Fausts eigener Setzung.',
-    left: 'am Wortlaut orientiert', right: 'von Faust gesetzt',
+    scene: 'Marthens Garten · Gretchenfrage',
+    title: 'Fausts Credo: Antwort, Umdeutung oder Flucht?',
+    intro: 'Gretchen stellt eine konkrete Bekenntnisfrage. Ordne jeden Schritt von Fausts Antwort zwischen klarem Bekenntnis und rhetorischer Verschiebung ein. Eine spinozistische Lesart ist dabei eine begründbare Deutung, nicht Fausts ausdrückliches Etikett.',
+    left: 'klares Bekenntnis', right: 'Ausweichen / Umdeuten',
     quotes: [
-      { label: 'Wort', text: '„Im Anfang war das Wort!“', check: '„Wort“ steht zunächst auf dem Blatt. Faust verwirft die Formulierung wegen seines eigenen Zweifels.' },
-      { label: 'Sinn', text: '„Im Anfang war der Sinn.“', check: '„Sinn“ deutet bereits: Faust ersetzt den Ausdruck durch das, was er für dessen Bedeutung hält.' },
-      { label: 'Kraft', text: '„Im Anfang war die Kraft!“', check: '„Kraft“ verschiebt den Anfang vom Zeichen zu einer wirkenden Ursache.' },
-      { label: 'Tat', text: '„Im Anfang war die Tat!“', check: '„Tat“ passt zu Fausts Handlungsdrang. Gerade deshalb muss die Übersetzungsentscheidung geprüft werden.' }
+      { label: 'Gretchens Massstab', text: '„Nun sag, wie hast du’s mit der Religion?“', check: 'Gretchen fragt nicht nur nach einem Gottesbegriff. Kirche, Sakramente und Lebensführung bilden für sie einen Zusammenhang.' },
+      { label: 'Negatives Bekenntnis', text: '„Wer darf ihn nennen? / Und wer bekennen: / Ich glaub ihn?“', check: 'Faust verweigert die eindeutige Aussage. Sein intellektueller Anspruch schützt ihn vor Dogmatik, lässt Gretchen aber ohne das verlangte Ja oder Nein.' },
+      { label: 'Gott-Natur-Gefühl', text: '„Erfüll davon dein Herz, so gross es ist“', check: 'Das Göttliche erscheint als allumfassender Zusammenhang, der innerlich erfahren wird. Darin liegt die Nähe zu einer spinozistischen, immanenten Gott-Natur-Lesart.' },
+      { label: 'Namenskritik', text: '„Gefühl ist alles; / Name ist Schall und Rauch“', check: 'Faust macht Gefühl zum letzten Grund und entzieht sich überprüfbaren Begriffen. Das kann Überzeugung sein – und zugleich Gretchen beschwichtigen.' }
     ],
     voices: [
-      { speaker: 'Der zögernde Faust', text: '„Ich kann das Wort so hoch unmöglich schätzen“', thought: 'Sein persönliches Sprachverständnis steuert die Übersetzung schon vor dem Ergebnis.', starter: 'Fausts Vorverständnis wird sichtbar in … Dadurch gewinnt seine Übersetzung …, verliert aber …' },
-      { speaker: 'Die Aufnahme', text: 'Betonung, Pause, Geste', thought: 'Eure Ton- und Filmspur zeigt, dass ein einzelnes Wort Körper und Erwartung verändert.', starter: 'Unsere Aufnahme zeigt bei der Variante … eine Veränderung von … Das stützt / widerlegt …' }
+      { speaker: 'Gretchen', text: '„Denn du hast kein Christentum.“', thought: 'Sie durchschaut, dass Faust ihre konkrete Frage nicht in ihrem Sinn beantwortet. Ihre religiöse Urteilskraft ist nicht philosophisch naiv, sondern praktisch scharf.', starter: 'Gretchen weist Fausts Rede zurück, weil ihre Frage auf … zielte, seine Antwort aber …' },
+      { speaker: 'Stimme von oben', text: '„Ist gerettet!“', thought: 'Am Ende von Faust I gilt die Rettung Gretchen. Faust flieht mit Mephistopheles; seine eigene metaphysische Rettung ist hier gerade nicht erzählt.', starter: 'Die Schlussstimme korrigiert die Perspektive: Gerettet wird …; für Faust bleibt in Faust I …' }
     ],
-    prompt: 'Die Variante … bleibt nah am Text, weil … Faust setzt mit … einen eigenen Akzent. Unsere Aufnahme macht das hör- oder sichtbar durch …'
+    prompt: 'Gretchen verlangt … Faust antwortet inhaltlich … Spinozistisch lesbar ist … Als Ausweichbewegung wirkt … Sein Dilemma zwischen religiöser Restbindung und intellektuellem Unglauben zeigt sich … Am Schluss von Faust I wird … gerettet.'
   },
   homunculus: {
     scene: 'Prolog im Himmel · Menschenbilder',
