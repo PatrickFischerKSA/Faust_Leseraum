@@ -33,8 +33,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible 
 .progressPill span { color:var(--red); font-weight:800; }
 
 .hero { position:relative; isolation:isolate; overflow:hidden; min-height:590px; padding:clamp(70px,10vw,130px) clamp(20px,8vw,128px) 86px; display:grid; grid-template-columns:minmax(0,1.45fr) minmax(280px,.55fr); align-items:end; column-gap:8vw; border-bottom:1px solid var(--line); background:var(--paper); }
-.heroFilm { position:absolute; z-index:-3; inset:-5%; width:110%; height:110%; object-fit:cover; filter:blur(18px) saturate(.7) contrast(.9); opacity:.34; }
-.heroFilmVeil { position:absolute; z-index:-2; inset:0; background:linear-gradient(90deg,rgba(241,237,226,.82) 0%,rgba(241,237,226,.67) 48%,rgba(241,237,226,.54) 100%),radial-gradient(circle at 84% 22%,rgba(214,59,40,.18),transparent 30%); pointer-events:none; }
+.heroFilm { position:absolute; z-index:-3; inset:-1%; width:102%; height:102%; object-fit:cover; filter:blur(4px) saturate(.82) contrast(.96); opacity:.58; }
+.heroFilmVeil { position:absolute; z-index:-2; inset:0; background:linear-gradient(90deg,rgba(241,237,226,.7) 0%,rgba(241,237,226,.52) 48%,rgba(241,237,226,.4) 100%),radial-gradient(circle at 84% 22%,rgba(214,59,40,.1),transparent 30%); pointer-events:none; }
 .heroFilmControl { position:absolute; z-index:2; top:26px; right:clamp(20px,5vw,80px); display:flex; align-items:center; gap:9px; padding:9px 13px; border:1px solid rgba(21,20,17,.35); border-radius:999px; background:rgba(241,237,226,.78); color:var(--ink); backdrop-filter:blur(10px); cursor:pointer; font-size:9px; font-weight:800; letter-spacing:.11em; text-transform:uppercase; }
 .heroFilmControl:hover { border-color:var(--red); color:var(--red); }
 .heroFilmControl>span { display:grid; place-items:center; width:18px; height:18px; border-radius:50%; background:var(--ink); color:var(--chalk); font-size:8px; letter-spacing:0; }
