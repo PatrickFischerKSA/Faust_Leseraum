@@ -1,12 +1,39 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { FULL_FILM_ID, scenes, TEXT_URL } from './data';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { scenes, TEXT_URL, type Scene } from './data';
 import { evaluateResponse, TextFeedback } from './feedback';
 
 type Answers = Record<number, string>;
 
 const TOTAL = scenes.reduce((sum, scene) => sum + scene.questions.length, 0);
+
+function LocalScenePlayer({ scene, index, mediaBase }: { scene: Scene; index: number; mediaBase: string }) {
+  const player = useRef<HTMLVideoElement>(null);
+  const [started, setStarted] = useState(false);
+
+  function startClip() {
+    setStarted(true);
+    void player.current?.play();
+  }
+
+  return (
+    <div className="videoFrame localClipFrame">
+      <video ref={player} controls playsInline preload="metadata" onPlay={() => setStarted(true)} src={`${mediaBase}/faust-clips/${scene.slug}.mp4`}>
+        Dein Browser kann diese lokale Filmsequenz nicht abspielen.
+      </video>
+      {!started && (
+        <button className="clipIntertitle" type="button" onClick={startClip} aria-label={`${scene.title} abspielen`}>
+          <span>Faust I · Szene {String(index + 1).padStart(2, '0')}</span>
+          <strong>{scene.title}</strong>
+          <small>Gründgens · Quadflieg · Gorski 1960</small>
+          <i aria-hidden="true">▶</i>
+          <b>Lokale Filmsequenz starten</b>
+        </button>
+      )}
+    </div>
+  );
+}
 
 function formatTime(seconds: number) {
   const hours = Math.floor(seconds / 3600);
@@ -46,6 +73,7 @@ function downloadWork(answers: Answers, done: number[]) {
 }
 
 export default function Home() {
+  const mediaBase = process.env.NEXT_PUBLIC_BASE_PATH || '';
   const [sceneIndex, setSceneIndex] = useState(2);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -191,25 +219,13 @@ export default function Home() {
             <span>Szene {String(sceneIndex + 1).padStart(2, '0')}</span>
             <h2>{scene.title}</h2>
           </div>
-          <div className="videoFrame">
-            <iframe
-              key={scene.slug}
-              src={`https://www.youtube-nocookie.com/embed/${FULL_FILM_ID}?start=${scene.start}&end=${scene.end}&rel=0`}
-              title={`Faust (1960): ${scene.title}`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
+          <LocalScenePlayer key={scene.slug} scene={scene} index={sceneIndex} mediaBase={mediaBase} />
           {scene.note && <p className="filmNote"><strong>Schnittnotiz</strong>{scene.note}</p>}
           <div className="stageCaption">
             <span>Gründgens / Quadflieg</span>
             <span>Gorski · 1960</span>
           </div>
-          <div className="stageLinks">
-            <a href={`https://www.youtube.com/watch?v=${FULL_FILM_ID}&t=${scene.start}s`} target="_blank" rel="noreferrer">Sequenz auf YouTube ↗</a>
-            {scene.extraVideoId && <a href={`https://www.youtube.com/watch?v=${scene.extraVideoId}`} target="_blank" rel="noreferrer">Einzelclip öffnen ↗</a>}
-            {scene.resource && <a href={scene.resource.url} target="_blank" rel="noreferrer">{scene.resource.label} ↗</a>}
-          </div>
+          <p className="localClipNotice">Werbefrei · direkt aus dieser Lernplattform · keine Verbindung zu YouTube</p>
         </section>
 
         <article className="questionCard">
@@ -240,7 +256,7 @@ export default function Home() {
 
       <footer>
         <div><span className="brandMark">F·I</span><p>Eine interaktive Lernumgebung zu Johann Wolfgang von Goethes <em>Faust I</em>.</p></div>
-        <div className="footerLinks"><a href="./wissenswelten/">Fausts Wissenswelten</a><a href={TEXT_URL} target="_blank" rel="noreferrer">Projekt Gutenberg</a><a href={`https://www.youtube.com/watch?v=${FULL_FILM_ID}`} target="_blank" rel="noreferrer">Filmfassung 1960</a><button onClick={() => { if (window.confirm('Alle lokalen Antworten und Markierungen löschen?')) { setAnswers({}); setDone([]); } }}>Fortschritt löschen</button></div>
+        <div className="footerLinks"><a href="./wissenswelten/">Fausts Wissenswelten</a><a href={TEXT_URL} target="_blank" rel="noreferrer">Projekt Gutenberg</a><span>28 lokale Filmsequenzen</span><button onClick={() => { if (window.confirm('Alle lokalen Antworten und Markierungen löschen?')) { setAnswers({}); setDone([]); } }}>Fortschritt löschen</button></div>
       </footer>
     </main>
   );

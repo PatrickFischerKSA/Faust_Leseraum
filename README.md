@@ -55,8 +55,6 @@ NEXT_PUBLIC_BASE_PATH=/faust-leseraum npm run build:github
 ## Quellen
 
 - Goethe-Volltext: [Projekt Gutenberg](https://www.projekt-gutenberg.org/goethe/faust1/chap001.html)
-- Film: [FAUST – Goethe – Gustaf Gründgens – Will Quadflieg (1960)](https://www.youtube.com/watch?v=qaogjXLdPow)
-- Pakt-Einzelclip: [Faust – Pakt](https://www.youtube.com/watch?v=Ou3AV5i1754)
-- Lied-Einzelclip: [Es war ein König in Thule – Faust (1960)](https://www.youtube.com/watch?v=wvSGWN_9kwk)
+- Filmfassung: *FAUST* – Goethe · Gustaf Gründgens · Will Quadflieg (1960)
 
-Die Videos werden nicht kopiert, sondern datensparsam über `youtube-nocookie.com` eingebettet. Verfügbarkeit und Rechte liegen bei den jeweiligen Anbietern.
+Die 28 Unterrichtssequenzen liegen als lokale, komprimierte MP4-Dateien im Projekt. Die Website verbindet sich beim Abspielen nicht mit YouTube. Die vollständige 4K-Schnittquelle wird nicht im Repository veröffentlicht.

@@ -92,7 +92,16 @@ h1 em { color:var(--red); font-weight:400; }
 .sceneHeading > span { color:var(--red-soft); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.14em; }
 .sceneHeading h2 { max-width:620px; margin:8px 0 0; font:42px/.98 Georgia,serif; letter-spacing:-.035em; }
 .videoFrame { position:relative; aspect-ratio:4/3; background:#000; box-shadow:0 24px 60px rgba(0,0,0,.35); }
-.videoFrame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.videoFrame iframe,.videoFrame>video { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.videoFrame>video { object-fit:contain; background:#000; }
+.clipIntertitle { position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:clamp(24px,5vw,56px); border:0; background:radial-gradient(circle at 80% 18%,rgba(207,74,53,.2),transparent 28%),linear-gradient(130deg,#0c0b0a 15%,#201815 100%); color:var(--chalk); text-align:left; cursor:pointer; }
+.clipIntertitle:focus-visible { outline:3px solid var(--red-soft); outline-offset:-7px; }
+.clipIntertitle>span { color:var(--red-soft); font-size:10px; font-weight:900; letter-spacing:.16em; text-transform:uppercase; }
+.clipIntertitle>strong { max-width:90%; margin:15px 0 24px; font:clamp(30px,4.3vw,58px)/.98 Georgia,serif; letter-spacing:-.035em; }
+.clipIntertitle>small { color:#aaa49b; font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+.clipIntertitle>i { position:absolute; right:clamp(24px,6vw,60px); bottom:clamp(24px,5vw,50px); display:grid; place-items:center; width:64px; height:64px; border:1px solid #81776d; border-radius:50%; background:var(--chalk); color:var(--ink); font-style:normal; font-size:21px; padding-left:4px; }
+.clipIntertitle>b { position:absolute; right:clamp(24px,6vw,60px); bottom:18px; color:#aaa49b; font-size:9px; letter-spacing:.08em; text-transform:uppercase; }
+.localClipNotice { margin:22px 0 0; color:#aaa69c; font-size:10px; letter-spacing:.1em; text-transform:uppercase; }
 .filmNote { display:grid; grid-template-columns:auto 1fr; gap:14px; margin:20px 0 0; padding:15px 0; border-top:1px solid #3b3934; border-bottom:1px solid #3b3934; color:#c5c0b6; font:14px/1.5 Georgia,serif; }
 .filmNote strong { color:var(--red-soft); font:800 9px Arial,sans-serif; text-transform:uppercase; letter-spacing:.13em; }
 .stageLinks { display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:28px; }
@@ -148,7 +157,8 @@ footer { display:grid; grid-template-columns:1fr auto; gap:40px; align-items:end
 footer > div:first-child { display:flex; align-items:center; gap:18px; max-width:470px; }
 footer p { margin:0; color:#6a655d; font:16px/1.5 Georgia,serif; }
 .footerLinks { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:18px; }
-.footerLinks a,.footerLinks button { border:0; background:transparent; color:#5f5a52; padding:0; text-decoration:underline; text-underline-offset:4px; cursor:pointer; font-size:10px; text-transform:uppercase; letter-spacing:.1em; }
+.footerLinks a,.footerLinks button,.footerLinks span { border:0; background:transparent; color:#5f5a52; padding:0; text-decoration:underline; text-underline-offset:4px; cursor:pointer; font-size:10px; text-transform:uppercase; letter-spacing:.1em; }
+.footerLinks span { cursor:default; text-decoration:none; }
 
 @media (max-width:1120px) {
   .workspace { grid-template-columns:210px minmax(0,1fr); }
@@ -175,6 +185,9 @@ footer p { margin:0; color:#6a655d; font:16px/1.5 Georgia,serif; }
   .sceneButton { min-width:170px; }
   .stage,.questionCard { padding:34px 20px 46px; }
   .sceneHeading h2 { font-size:36px; }
+  .clipIntertitle>strong { max-width:100%; font-size:28px; }
+  .clipIntertitle>i { right:20px; bottom:38px; width:50px; height:50px; }
+  .clipIntertitle>b { right:20px; bottom:14px; }
   .questionCard h2 { font-size:30px; }
   .answerFooter { align-items:flex-start; flex-direction:column; }
   .feedbackChecks { grid-template-columns:1fr; }

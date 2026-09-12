@@ -1,7 +1,5 @@
 export type Question = { id: number; source: string; text: string };
-export type Scene = { slug: string; title: string; start: number; end: number; note: string; questions: Question[]; extraVideoId?: string; resource?: { label: string; url: string } };
-
-export const FULL_FILM_ID = 'qaogjXLdPow';
+export type Scene = { slug: string; title: string; start: number; end: number; note: string; questions: Question[] };
 export const TEXT_URL = 'https://www.projekt-gutenberg.org/goethe/faust1/chap001.html';
 
 export const scenes: Scene[] = [
@@ -678,8 +676,4 @@ export const scenes: Scene[] = [
     ]
   }
 ];
-
-scenes.find((scene) => scene.title === 'Studierzimmer II')!.extraVideoId = 'Ou3AV5i1754';
-scenes.find((scene) => scene.title === 'Margarete mit einer Lampe')!.extraVideoId = 'wvSGWN_9kwk';
-scenes.find((scene) => scene.title === 'Gretchen am Spinnrad')!.resource = { label: 'Schubert: Gretchen am Spinnrade', url: 'https://www.youtube.com/watch?v=MY0eeotSDi8' };
 
