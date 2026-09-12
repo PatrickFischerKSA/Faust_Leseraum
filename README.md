@@ -60,3 +60,5 @@ NEXT_PUBLIC_BASE_PATH=/faust-leseraum npm run build:github
 Die 28 Unterrichtssequenzen liegen als lokale, komprimierte MP4-Dateien im Projekt. Die Website verbindet sich beim Abspielen nicht mit YouTube. Die vollständige 4K-Schnittquelle wird nicht im Repository veröffentlicht.
 
 Der Hero der Startseite verwendet `public/faust-pakt-hintergrund.mp4` als stumme, weichgezeichnete Endlosschleife. Besucherinnen und Besucher können die Wiedergabe jederzeit anhalten und wieder starten.
+
+Der Titelbereich der Wissenswelten verwendet `public/studierzimmer-hintergrund.mp4` nach demselben Prinzip: lokal, stumm, moderat weichgezeichnet, endlos wiederholt und jederzeit pausierbar.

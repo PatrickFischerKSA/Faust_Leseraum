@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { glossary, modules, sources, type Task } from './data';
 import { evaluateResponse } from '../feedback';
 import LifeLab from './LifeLab';
@@ -21,6 +21,8 @@ const investigationRhythms:Record<string,{title:string;text:string}[]>={
 
 export default function Wissenswelten() {
   const mediaBase=process.env.NEXT_PUBLIC_BASE_PATH||'';
+  const studyFilm = useRef<HTMLVideoElement>(null);
+  const [studyFilmPlaying, setStudyFilmPlaying] = useState(true);
   const [active, setActive] = useState(0);
   const [depth, setDepth] = useState<'Basis'|'Vertiefung'|'Forschung'>('Basis');
   const [teacher, setTeacher] = useState(false);
@@ -64,9 +66,23 @@ export default function Wissenswelten() {
     const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([lines.join('\n')], {type:'text/markdown'})); link.download='faust-erkenntniskarte.md'; link.click(); URL.revokeObjectURL(link.href);
   }
 
+  async function toggleStudyFilm() {
+    const film = studyFilm.current;
+    if (!film) return;
+    if (film.paused) {
+      try {
+        await film.play();
+      } catch {
+        setStudyFilmPlaying(false);
+      }
+    } else {
+      film.pause();
+    }
+  }
+
   return <main className="worlds">
     <header className="worldTop"><a className="worldBrand" href="../"><span>F·I</span> Am Anfang war der Text</a><nav className="worldAreaNav" aria-label="Hauptbereiche"><a href="../"><span>01</span> Am Anfang war der Text</a><a className="active" href="#top" aria-current="page"><span>02</span> Wissenswelten</a></nav><nav className="worldTools"><a href="#studienwahl">Studienwahl</a><a href="#module">Module</a><a href="#glossar">Glossar</a><button onClick={exportNotes}>Export</button></nav><div className="worldProgress">{completed}/18</div></header>
-    <section className="worldHero studyRoomHero" id="top"><div className="roomSet" aria-hidden="true"><div className="roomWindow"><i/></div><div className="roomShelves"><span/><span/><span/><span/><span/><span/><span/><span/></div><div className="deskLamp"><i/><b/></div><div className="deskEdge"/></div><div className="roomTitle"><p className="worldEyebrow">Goethes digitales Studierzimmer · Faust I</p><h1>Fausts<br/><em>Wissenswelten</em></h1><p className="roomQuote">Faust I fragt nach den Grenzen des Wissens, nach Sprache, Freiheit und Verantwortung.</p></div><div className="worldIntro deskPaper"><span className="paperClip" aria-hidden="true">F·I</span><a className="backToReading" href="../"><span>←</span><small>Zurück zu Film & Text</small><strong>Am Anfang war der Text</strong></a><p>Hier untersuchst du Fragen aus Faust I durch Beobachtung, begründete Urteile und den Vergleich verschiedener Perspektiven.</p><div className="socialLegend"><span>● ALLEIN</span><span>● ZU ZWEIT</span><span>● ZU DRITT</span></div><p className="privacy">Alles bleibt lokal. Teile nur, was für dich okay ist.</p></div></section>
+    <section className="worldHero studyRoomHero" id="top"><video ref={studyFilm} className="studyHeroFilm" src={`${mediaBase}/studierzimmer-hintergrund.mp4`} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} onPlay={()=>setStudyFilmPlaying(true)} onPause={()=>setStudyFilmPlaying(false)}/><span className="studyHeroVeil" aria-hidden="true"/><button className="studyFilmControl" type="button" onClick={toggleStudyFilm} aria-pressed={!studyFilmPlaying}><span aria-hidden="true">{studyFilmPlaying?'Ⅱ':'▶'}</span>{studyFilmPlaying?'Film anhalten':'Film fortsetzen'}</button><div className="roomTitle"><p className="worldEyebrow">Goethes digitales Studierzimmer · Faust I</p><h1>Fausts<br/><em>Wissenswelten</em></h1><p className="roomQuote">Faust I fragt nach den Grenzen des Wissens, nach Sprache, Freiheit und Verantwortung.</p></div><div className="worldIntro deskPaper"><span className="paperClip" aria-hidden="true">F·I</span><a className="backToReading" href="../"><span>←</span><small>Zurück zu Film & Text</small><strong>Am Anfang war der Text</strong></a><p>Hier untersuchst du Fragen aus Faust I durch Beobachtung, begründete Urteile und den Vergleich verschiedener Perspektiven.</p><div className="socialLegend"><span>● ALLEIN</span><span>● ZU ZWEIT</span><span>● ZU DRITT</span></div><p className="privacy">Alles bleibt lokal. Teile nur, was für dich okay ist.</p></div></section>
     <section className="library" aria-label="Module"><div className="libraryIntro"><p className="worldEyebrow">Sechs Untersuchungen zu Faust I</p><h2>Welche Frage möchtest du untersuchen?</h2><p>Jeder Bereich beginnt mit einer konkreten Beobachtung und führt zu ausgewählten Szenen des ersten Teils.</p></div><div className="moduleMap">{modules.map((m,i)=><button key={m.id} className={i===active?'active':''} onClick={()=>{setActive(i); setFilter('Alle'); document.getElementById('module')?.scrollIntoView({behavior:'smooth'});}}><span>{m.number}</span><strong>{m.title}</strong><small>{m.question}</small><b>{i===active?'Gerade geöffnet':'Untersuchung öffnen'} →</b></button>)}</div></section>
     <Studienwahllabor/>
     <section className="moduleArea" id="module">
