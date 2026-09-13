@@ -62,3 +62,5 @@ Die 28 Unterrichtssequenzen liegen als lokale, komprimierte MP4-Dateien im Proje
 Der Hero der Startseite verwendet `public/faust-pakt-hintergrund.mp4` als stumme, weichgezeichnete Endlosschleife. Besucherinnen und Besucher können die Wiedergabe jederzeit anhalten und wieder starten.
 
 Der Titelbereich der Wissenswelten verwendet `public/studierzimmer-hintergrund.mp4` nach demselben Prinzip: lokal, stumm, moderat weichgezeichnet, endlos wiederholt und jederzeit pausierbar.
+
+Ganz oben im Leseraum stehen drei lokal eingebettete Kurzfassungen zur Wahl: *Goethes Faust in 90 Sekunden*, *Faust in 5 Minuten* und *Faust I to go · MeinSenf*. Die Dateien sind für das Web komprimiert und werden direkt von der Plattform geladen.

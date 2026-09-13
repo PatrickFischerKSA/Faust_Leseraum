@@ -177,7 +177,28 @@ export default function Home() {
         <div className="progressPill" aria-label={`${done.length} von ${TOTAL} Fragen bearbeitet`}><span>{done.length}</span> / {TOTAL}</div>
       </header>
 
-      <section className="hero" id="top">
+      <section className="quickFilms" id="top" aria-labelledby="quick-films-title">
+        <header>
+          <div><span>Faust I · drei Kurzfassungen</span><h2 id="quick-films-title">Erst Überblick.<br/><em>Dann genau lesen.</em></h2></div>
+          <p>Drei Zugänge, drei Geschwindigkeiten. Wähle die Fassung, die zu deinem ersten Blick auf den Text passt.</p>
+        </header>
+        <div className="quickFilmGrid">
+          <figure>
+            <video controls playsInline preload="metadata" src={`${mediaBase}/faust-in-90-sekunden.mp4`}>Dein Browser kann dieses Video nicht abspielen.</video>
+            <figcaption><span>01 · 1:53</span><strong>Goethes Faust in 90 Sekunden</strong><small>Blitzblick</small></figcaption>
+          </figure>
+          <figure>
+            <video controls playsInline preload="metadata" src={`${mediaBase}/faust-in-5-minuten.mp4`}>Dein Browser kann dieses Video nicht abspielen.</video>
+            <figcaption><span>02 · 5:35</span><strong>Faust in 5 Minuten</strong><small>Kurzfassung</small></figcaption>
+          </figure>
+          <figure>
+            <video controls playsInline preload="metadata" src={`${mediaBase}/faust-i-to-go.mp4`}>Dein Browser kann dieses Video nicht abspielen.</video>
+            <figcaption><span>03 · 15:23 Gesamtlänge</span><strong>Faust I to go · MeinSenf</strong><small>Fassung 3.0</small></figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section className="hero" id="hero">
         <video
           ref={heroFilm}
           className="heroFilm"
