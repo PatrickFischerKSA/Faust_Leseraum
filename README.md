@@ -70,3 +70,12 @@ Ganz oben im Leseraum stehen drei lokal eingebettete Kurzfassungen zur Wahl: *Go
 Jede Frage hat ein eigenes Prüfprofil in `app/feedbackProfiles.ts` mit einem konkreten Aufgabenhinweis. `app/feedbackEngine.ts` erkennt sprachliche Anknüpfungen, Beleg- und Begründungssignale. Umlaute werden konsistent normalisiert und Wortanfänge statt beliebiger Teilzeichenfolgen geprüft. Die Rückmeldung bescheinigt keine inhaltliche Richtigkeit; eigene Formulierungen sind zulässig. Der Bearbeitet-Status kann bei einer nicht leeren Antwort unabhängig von der heuristischen Erkennung gesetzt werden. Antworten und bisheriger Bearbeitungsstand bleiben im vorhandenen Speicherformat erhalten.
 
 Regressionstest: `node scripts/test-feedback.cjs`.
+
+
+## Musterlösungen nach der eigenen Antwort
+
+Alle 84 Lektürefragen enthalten einen eigenständigen Lösungsvorschlag in `app/modelAnswers.ts`. Sobald das Antwortfeld einen nicht leeren eigenen Text enthält, erscheint unter der Rückmeldung „Musterlösung zu Frage … anzeigen“. Die Lösung bleibt zunächst eingeklappt, öffnet sich auf Wunsch und verschwindet bei leerem Antwortfeld wieder. Beim Fragenwechsel wird die Aufklappansicht zurückgesetzt. Gespeicherte Antworten ermöglichen den Vergleich auch nach dem Neuladen. Keine Freigabe durch die heuristische Signalprüfung ist nötig.
+
+Jede Lösung umfasst einen ausgeführten Antwortvorschlag, einen individuellen Vergleichshinweis und den Link zur passenden Originalszene bei Projekt Gutenberg. Offene Deutungen, persönliche Beispiele und noch selbst auszuführende Rechercheteile sind gekennzeichnet. Inszenierungsbeobachtungen sind am konkreten Film zu prüfen. Sachlich ungenaue Voraussetzungen der Originalfragen werden ausdrücklich eingeordnet, etwa Johannesevangelium/Genesis, Fausts vorläufige Übersetzungsentscheidung und die Stimmen im Dom. Die Lösungen verändern und überschreiben keine eigenen Antworten.
+
+Grundlage: Goethes gemeinfreier Originaltext, [Faust: Eine Tragödie, Projekt Gutenberg](https://projekt-gutenberg.org/authors/johann-wolfgang-von-goethe/books/faust-eine-tragoedie/), eigene didaktische Formulierungen. Stand: 30. Oktober 2026.

@@ -221,3 +221,5 @@ footer p { margin:0; color:#6a655d; font:16px/1.5 Georgia,serif; }
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none!important; } }
 
 .questionFeedbackHint{padding:14px 16px;border-left:3px solid #79927b;background:#eef2e9;line-height:1.7}.questionFeedbackHint strong{display:block;margin-bottom:6px}
+
+.modelAnswer{margin:22px 0;border:1px solid #b6c6b6;border-radius:8px;background:#fafbf5;color:#20382b}.modelAnswer>summary{padding:17px 18px;cursor:pointer;font-weight:700;line-height:1.5}.modelAnswerBody{padding:0 18px 20px;font-size:15px;line-height:1.8}.modelAnswerBody p{margin:12px 0}.modelAnswerBody h4{font-size:15px;margin:22px 0 8px}.modelAnswerLabel{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#51694c}.modelAnswerNote{font-size:13px;color:#53634e;border-top:1px solid #d4dfcc;padding-top:12px}.modelAnswerBody a{text-decoration:underline;text-underline-offset:3px}
