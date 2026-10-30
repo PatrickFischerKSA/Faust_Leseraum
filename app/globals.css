@@ -219,3 +219,5 @@ footer p { margin:0; color:#6a655d; font:16px/1.5 Georgia,serif; }
 }
 
 @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition:none!important; } }
+
+.questionFeedbackHint{padding:14px 16px;border-left:3px solid #79927b;background:#eef2e9;line-height:1.7}.questionFeedbackHint strong{display:block;margin-bottom:6px}

@@ -64,3 +64,9 @@ Der Hero der Startseite verwendet `public/faust-pakt-hintergrund.mp4` als stumme
 Der Titelbereich der Wissenswelten verwendet `public/studierzimmer-hintergrund.mp4` nach demselben Prinzip: lokal, stumm, moderat weichgezeichnet, endlos wiederholt und jederzeit pausierbar.
 
 Ganz oben im Leseraum stehen drei lokal eingebettete Kurzfassungen zur Wahl: *Goethes Faust in 90 Sekunden*, *Faust in 5 Minuten* und *Faust I to go · MeinSenf*. Die Dateien sind für das Web komprimiert und werden direkt von der Plattform geladen.
+
+## Rückmeldungen zu den 84 Lektürefragen
+
+Jede Frage hat ein eigenes Prüfprofil in `app/feedbackProfiles.ts` mit einem konkreten Aufgabenhinweis. `app/feedbackEngine.ts` erkennt sprachliche Anknüpfungen, Beleg- und Begründungssignale. Umlaute werden konsistent normalisiert und Wortanfänge statt beliebiger Teilzeichenfolgen geprüft. Die Rückmeldung bescheinigt keine inhaltliche Richtigkeit; eigene Formulierungen sind zulässig. Der Bearbeitet-Status kann bei einer nicht leeren Antwort unabhängig von der heuristischen Erkennung gesetzt werden. Antworten und bisheriger Bearbeitungsstand bleiben im vorhandenen Speicherformat erhalten.
+
+Regressionstest: `node scripts/test-feedback.cjs`.

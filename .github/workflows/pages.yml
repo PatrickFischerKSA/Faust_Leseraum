@@ -35,6 +35,9 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
+      - name: Rückmeldungen prüfen
+        run: node scripts/test-feedback.cjs
+
       - name: Statische Website bauen
         env:
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
